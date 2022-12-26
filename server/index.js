@@ -3,13 +3,16 @@ import {Schema, model} from "mongoose";
 import {Schemas} from "./model/schemas.schema.js";
 import "./db/mongoose.js";
 import {userRouter} from "./routes/userRoute.routes.js";
+import {collectionRouter} from "./routes/collectionRouter.routes.js";
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(json());
+
 app.use("/api/user", userRouter);
+app.use("/api/collection", collectionRouter);
 
 const modelObj = {};
 const schemaObj = {};

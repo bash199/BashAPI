@@ -8,7 +8,7 @@ const collectionSchema = new Schema(
          required: true,
          unique: true,
       },
-      userSchema: {
+      schema: {
          type: Schema.Types.Mixed,
       },
       proprietors: [
@@ -25,10 +25,10 @@ const collectionSchema = new Schema(
 );
 
 // Updates the user with the collection reference
-collectionSchema.pre("create", async function (next) {
-   const user = this;
-   if (user.isModified("proprietors")) {
-      user.proprietors.forEach(async (proprietor) => {
+collectionSchema.pre("save", async function (next) {
+   const currentUser = this;
+   if (currentUser.isModified("proprietors")) {
+      currentUser.proprietors.forEach(async (proprietor) => {
          const user = await User.findById(proprietor.userId);
          user.collections.push({
             name: user.name,
