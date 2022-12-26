@@ -1,10 +1,13 @@
 import express, {json} from "express";
-import {Schemas} from "./model/schemas.schema.js";
 import {Schema, model} from "mongoose";
+import {Schemas} from "./model/schemas.schema.js";
 import "./db/mongoose.js";
 import {userRouter} from "./routes/userRoute.routes.js";
+
 const PORT = process.env.PORT || 3000;
+
 const app = express();
+
 app.use(json());
 app.use("/api/user", userRouter);
 

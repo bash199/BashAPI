@@ -1,5 +1,5 @@
 import {Schema, model} from "mongoose";
-import {User} from "./user.model";
+import {User} from "./user.model.js";
 
 const collectionSchema = new Schema(
    {
