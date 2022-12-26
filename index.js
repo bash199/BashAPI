@@ -1,91 +1,71 @@
 import express, {json} from "express";
-import {User} from "./model/test.model.js";
+import {Schemas} from "./model/schemas.schema.js";
 import {Schema, model} from "mongoose";
 import "./db/mongoose.js";
+import {userRouter} from "./routes/userRoute.routes.js";
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(json());
+app.use("/api/user", userRouter);
 
-let modelArr = [];
-let schemaArr = [];
-const createModel = (name, schema) => {
-   const newSchema = new Schema(schema);
-   schemaArr.push(newSchema);
-   const newModel = new model(name, schema);
-   modelArr.push(newModel);
-   return {newSchema, newModel};
+const modelObj = {};
+const schemaObj = {};
+
+const createModel = async (name, schema) => {
+   schemaObj[name] = new Schema(schema);
+   await Schemas.create({
+      name: name,
+      schem: schemaObj[name],
+   });
+   modelObj[name] = model(name, schemaObj[name]);
+   return;
 };
-const schema = new Schema({
-   name: {type: String, unique: true, trim: true},
-   schem: Schema.Types.Mixed,
-});
 
-const schemas = model("schema", schema);
-
-app.get("/schemas/:name", async (req, res) => {
+app.post("/makeSchema/:name", async (req, res) => {
    try {
       const {name} = req.params;
       const {schem} = req.body;
-      const {newSchema, newModel} = createModel(name, schem);
-      const a = await schemas.create({name: name, schem: newSchema});
-      // console.log(newSchema);
-      res.status(201).send(newSchema);
+      await createModel(name, schem);
+      res.status(201).send();
    } catch (error) {
-      // console.log(error);
       res.status(404).send(error.message);
    }
 });
 
-app.put("/schemas/:name", async (req, res) => {
+app.put("/updateSchema/:name", async (req, res) => {
    try {
       const {name} = req.params;
-      const {updatedSchem, remove, addedFields} = req.body;
-      const sche = await schemas.findOneAndUpdate(
-         {name: name},
-         {$set: {schem: updatedSchem}}
-      );
-      // console.log(sche.schem.$id);
-      const sc = schemaArr.find((el) => {
-         console.log(el.$id);
-         if (el.$id == sche.schem.$id) {
-            return el;
-         }
-      });
-
-      // let newObj = makeObj(updatedSchem);
-      sc.remove(remove);
-      sc.add({addedFields});
-      console.log(remove);
-      // console.log(newSchema.obj);
-      // await NewModel.create(newObj);
-      // const response = await NewModel.updateMany(newObj);
-      res.send(sc);
+      const {remove, addedFields} = req.body;
+      const aa = await Schemas.findOne({name: name});
+      await schemaObj[name].remove(remove);
+      await schemaObj[name].add(addedFields);
+      res.send(schemaObj[name]);
    } catch (error) {
       res.status(504).send(error.message);
    }
 });
 
-// app.get("/schemas/:name", async (req, res) => {
-//    try {
-//       const {name} = req.params;
-//       const {_id} = req.body;
-//       const aa = await schemas.findOne({name: name, _id: _id});
-//       res.send(aa);
-//    } catch (error) {
-//       res.status(504).send(error.message);
-//    }
-// });
-
-app.get("/allschemas", async (req, res) => {
+app.get("/schemas/:name", async (req, res) => {
    try {
-      const aa = await schemas.find({});
+      const {name} = req.params;
+      const aa = await Schemas.findOne({name: name});
+      console.dir(aa.mode);
       res.send(aa);
    } catch (error) {
       res.status(504).send(error.message);
    }
 });
 
-const makeObj = (schem) => {
+app.get("/allschemas", async (req, res) => {
+   try {
+      const allschemas = await Schemas.find({});
+      res.send(allschemas);
+   } catch (error) {
+      res.status(504).send(error.message);
+   }
+});
+
+function makeObj(schem) {
    let newObj = {};
    const newKey = Object.keys(schem);
    const newVal = Object.values(schem);
@@ -96,61 +76,27 @@ const makeObj = (schem) => {
          newObj[newKey[i]] = [];
       } else if (newVal[i] === "Object") {
          newObj[newKey[i]] = {};
+      } else if (newVal[i] === "Boolean") {
+         newObj[newKey[i]] = Math.random() > 0.5 ? true : false;
       } else {
          newObj[newKey[i]] = newVal[i];
       }
    });
    return newObj;
-};
+}
 
-// app.post("/schemas/:name", async (req, res) => {
-//    try {
-//       const {name} = req.params;
-//       const {schem} = req.body;
-//       if (schem) {
-//          let newObj = makeObj(schem);
-//          const a = await schemas.create({name: name, schem: schem});
-//          newSchema = new Schema(a.schem);
-//          console.log(newSchema.obj);
-//          NewModel = model(name, newSchema);
-//          const response = await NewModel.create(newObj);
-//          res.status(201).send(response);
-//       }
-//    } catch (error) {
-//       res.status(504).send(error.message);
-//    }
-// });
+app.post("/schemas/:name", async (req, res) => {
+   try {
+      const {name} = req.params;
+      const {body} = req;
 
-// app.put("/schemas/:name", async (req, res) => {
-//    try {
-//       const {name} = req.params;
-//       const {updatedSchem, remove, addedFields} = req.body;
-//       await schemas.findOneAndUpdate(
-//          {name: name},
-//          {$set: {schem: updatedSchem}}
-//       );
-//       let newObj = makeObj(updatedSchem);
-//       newSchema.remove(remove);
-//       newSchema.add({addedFields});
-//       console.log(newSchema.obj);
-//       await NewModel.create(newObj);
-//       const response = await NewModel.updateMany(newObj);
-//       res.send({response});
-//    } catch (error) {
-//       res.status(504).send(error.message);
-//    }
-// });
-
-// app.post("/:name/:id", async (req, res) => {
-//    try {
-//       const {name, id} = req.params;
-//       const {body} = req;
-//       const response = await NewModel.create(body);
-//       res.send(response);
-//    } catch (error) {
-//       res.status(504).send(error.message);
-//    }
-// });
+      const a = makeObj(body);
+      const b = await modelObj[name].create(a);
+      res.send(b);
+   } catch (error) {
+      res.status(504).send(error.message);
+   }
+});
 
 app.listen(PORT, () => {
    console.log(` app listening on port ${PORT}`);
