@@ -33,3 +33,14 @@ export const getUserCollection = async (req, res) => {
       res.status(404).send(error.message);
    }
 };
+
+export const getAllUserCollection = (req, res) => {
+   try {
+      const {user} = req;
+      console.log(user);
+      res.status(200).send(user);
+   } catch (error) {
+      console.log(err);
+      res.status(404).send(err.message);
+   }
+};
