@@ -2,6 +2,7 @@ import {Router} from "express";
 import {
    createUserCollection,
    deleteUserCollection,
+   getUserCollection,
 } from "../controllers/collection.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
 import {authUser} from "../middleware/authUser.js";
@@ -17,8 +18,16 @@ collectionRouter.delete(
    authCollection,
    deleteUserCollection
 );
+
 // update a  collection
+collectionRouter.put("/:collectionName", authUser);
 
 // Get a collection
+collectionRouter.get(
+   "/:collectionName",
+   authUser,
+   authCollection,
+   getUserCollection
+);
 
 // Get all collections
