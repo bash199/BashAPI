@@ -3,7 +3,7 @@ import {User} from "../model/user.model.js";
 
 // Authenticate user
 export const authUser = async (req, res, next) => {
-   console.log("auth");
+   console.log("authUser");
    const secret = process.env.AUTH_SECRET;
    try {
       const token = req.header("Authorization").replace("Bearer ", "");
@@ -18,6 +18,6 @@ export const authUser = async (req, res, next) => {
       next();
    } catch (e) {
       console.log(e);
-      res.status(401).send({message: "Please authenticate."});
+      res.status(401).send(e.message);
    }
 };
