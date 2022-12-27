@@ -24,11 +24,6 @@ const userSchema = new Schema({
       required: true,
       trim: true,
       minlength: 6,
-      // validate(value) {
-      //    if (value.toLowerCase().includes("password")) {
-      //       throw new Error('Password cannot contain "password"');
-      //    }
-      // },
    },
    tokens: [
       {
@@ -42,13 +37,12 @@ const userSchema = new Schema({
          name: {
             type: String,
          },
-         documentCount: {
-            type: Number,
-            default: 0,
-         },
-         reference: {
+         // documentCount: {
+         //    type: Number,
+         //    default: 0,
+         // },
+         collectionId: {
             type: Schema.Types.ObjectId,
-            ref: "Collections",
          },
       },
    ],

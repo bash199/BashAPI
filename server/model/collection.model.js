@@ -11,15 +11,20 @@ const collectionSchema = new Schema(
       schema: {
          type: Schema.Types.Mixed,
       },
-      proprietors: [
-         {
-            userId: {
-               type: Schema.Types.ObjectId,
-               ref: "User",
-               required: true,
-            },
+      // proprietors: [
+      //    {
+      //       userId: {
+      //          type: Schema.Types.ObjectId,
+      //          ref: "User",
+      //          required: true,
+      //       },
+      //    },
+      // ],
+      owner: {
+         userId: {
+            type: Schema.Types.ObjectId,
          },
-      ],
+      },
    },
    {strict: false}
 );
@@ -40,6 +45,6 @@ collectionSchema.pre("save", async function (next) {
    next();
 });
 
-const Collection = model("Collection", collectionSchema);
+const CollectionModel = model("Collection", collectionSchema);
 
-export {Collection};
+export {CollectionModel};

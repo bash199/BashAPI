@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import {User} from "../model/user.model.js";
 
 // Authenticate user
-export const auth = async (req, res, next) => {
+export const authUser = async (req, res, next) => {
    console.log("auth");
    const secret = process.env.AUTH_SECRET;
    try {
