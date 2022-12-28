@@ -3,7 +3,7 @@ import {
    createUserCollection,
    deleteUserCollection,
    getUserCollection,
-   getAllUserCollection,
+   getAllUserCollections,
    updateUserCollection,
 } from "../controllers/collection.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
@@ -38,4 +38,4 @@ collectionRouter.get(
 );
 
 // Get all collections
-collectionRouter.get("/", authUser, getAllUserCollection);
+collectionRouter.get("/", authUser, getAllUserCollections);

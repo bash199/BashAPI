@@ -57,13 +57,17 @@ export const getUserCollection = async (req, res) => {
    }
 };
 
-export const getAllUserCollection = (req, res) => {
+export const getAllUserCollections = async (req, res) => {
    try {
       const {user} = req;
-      console.log(user);
-      res.status(200).send(user);
-   } catch (error) {
+      res.status(200).send(user.collections);
+   } catch (err) {
       console.log(err);
       res.status(404).send(err.message);
    }
+};
+
+const reverseGeneratedName = (name) => {
+   const newName = name.substr(name.lastIndexOf("_") + 1);
+   return newName;
 };

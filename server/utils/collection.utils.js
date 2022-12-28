@@ -1,6 +1,5 @@
 import mongoose, {deleteModel} from "mongoose";
 import {CollectionModel} from "../model/collection.model.js";
-import {User} from "../model/user.model.js";
 import {createModel} from "../services/createModel.js";
 import {createSchema, modifieSchema} from "../services/createSchema.js";
 import {generateCollectionName} from "./generateCollectionName.js";
@@ -45,3 +44,8 @@ export const updateCollection = async (
    const newSchema = await modifieSchema(schema, removedFields, addedFields);
    return newSchema;
 };
+
+// const {schema} = await CollectionModel.findOne({name: collec.name});
+// const Model = await createModel(collec.name, schema);
+// const DocumentsCount = await Model.countDocuments({});
+// collec.documentCount = DocumentsCount;

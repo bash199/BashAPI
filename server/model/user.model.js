@@ -37,10 +37,10 @@ const userSchema = new Schema({
          name: {
             type: String,
          },
-         // documentCount: {
-         //    type: Number,
-         //    default: 0,
-         // },
+         documentCount: {
+            type: Number,
+            default: 0,
+         },
          collectionId: {
             type: Schema.Types.ObjectId,
          },
