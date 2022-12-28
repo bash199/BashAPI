@@ -6,6 +6,7 @@ import {
    getAllUserCollections,
    updateUserCollection,
 } from "../controllers/collection.controller.js";
+import {createDocument} from "../controllers/document.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
 import {authUser} from "../middleware/authUser.js";
 
@@ -15,7 +16,7 @@ collectionRouter.post("/newCollection", authUser, createUserCollection);
 
 // delete a  collection
 collectionRouter.delete(
-   "/:collectionName",
+   "/delete/:collectionName",
    authUser,
    authCollection,
    deleteUserCollection
@@ -23,7 +24,7 @@ collectionRouter.delete(
 
 // update a  collection
 collectionRouter.put(
-   "/:collectionName",
+   "/update/:collectionName",
    authUser,
    authCollection,
    updateUserCollection
@@ -39,3 +40,11 @@ collectionRouter.get(
 
 // Get all collections
 collectionRouter.get("/", authUser, getAllUserCollections);
+
+// Create a document
+collectionRouter.post(
+   "/:collectionName",
+   authUser,
+   authCollection,
+   createDocument
+);
