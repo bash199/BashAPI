@@ -11,10 +11,9 @@ export const authCollection = async (req, res, next) => {
       const name = generateCollectionName(collectionName, user._id);
       const collection = await CollectionModel.findOne({name});
       if (!collection) throw new Error("collection not found");
-
       const schema = await createSchema(collection.schema);
       const Model = await createModel(name, schema);
-
+      req.schema = schema;
       req.collection = collection;
       req.Model = Model;
       next();

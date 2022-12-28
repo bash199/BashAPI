@@ -1,4 +1,8 @@
-import {createCollection, deleteCollection} from "../utils/collection.utils.js";
+import {
+   createCollection,
+   deleteCollection,
+   updateCollection,
+} from "../utils/collection.utils.js";
 
 export const createUserCollection = async (req, res) => {
    try {
@@ -9,6 +13,25 @@ export const createUserCollection = async (req, res) => {
    } catch (error) {
       console.log(error);
       res.status(400).send(error.message);
+   }
+};
+
+export const updateUserCollection = async (req, res) => {
+   try {
+      const {addedFields, updatedSchema, removedFields} = req.body;
+      const {collection, schema} = req;
+
+      const updatedCollection = await updateCollection(
+         collection,
+         schema,
+         addedFields,
+         updatedSchema,
+         removedFields
+      );
+      res.status(200).send(updatedCollection);
+   } catch (err) {
+      console.log(err);
+      res.status(400).send(err.message);
    }
 };
 

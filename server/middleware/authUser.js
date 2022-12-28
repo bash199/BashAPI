@@ -3,9 +3,10 @@ import {User} from "../model/user.model.js";
 
 // Authenticate user
 export const authUser = async (req, res, next) => {
-   console.log("authUser");
-   const secret = process.env.AUTH_SECRET;
+   // const {token} = req.params;
    try {
+      console.log("authUser");
+      const secret = process.env.AUTH_SECRET;
       const token = req.header("Authorization").replace("Bearer ", "");
       const decoded = jwt.verify(token, secret);
       const user = await User.findOne({

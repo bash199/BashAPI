@@ -2,7 +2,7 @@ import mongoose, {deleteModel} from "mongoose";
 import {CollectionModel} from "../model/collection.model.js";
 import {User} from "../model/user.model.js";
 import {createModel} from "../services/createModel.js";
-import {createSchema} from "../services/createSchema.js";
+import {createSchema, modifieSchema} from "../services/createSchema.js";
 import {generateCollectionName} from "./generateCollectionName.js";
 
 export const createCollection = async (schema, collectionName, user) => {
@@ -31,4 +31,17 @@ export const deleteCollection = async (user, collection) => {
    deleteModel(collection.name);
    const modifiedUser = await user.save();
    return modifiedUser;
+};
+
+export const updateCollection = async (
+   collection,
+   schema,
+   addedFields,
+   updatedSchema,
+   removedFields
+) => {
+   collection.schema = updatedSchema;
+   await collection.save();
+   const newSchema = await modifieSchema(schema, removedFields, addedFields);
+   return newSchema;
 };
