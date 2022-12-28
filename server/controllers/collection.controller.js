@@ -66,8 +66,3 @@ export const getAllUserCollections = async (req, res) => {
       res.status(404).send(err.message);
    }
 };
-
-const reverseGeneratedName = (name) => {
-   const newName = name.substr(name.lastIndexOf("_") + 1);
-   return newName;
-};
