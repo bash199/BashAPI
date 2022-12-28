@@ -4,6 +4,7 @@ import {Schemas} from "./model/schemas.schema.js";
 import "./db/mongoose.js";
 import {userRouter} from "./routes/userRoute.routes.js";
 import {collectionRouter} from "./routes/collectionRouter.routes.js";
+import {documentRouter} from "./routes/document.routes.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +14,7 @@ app.use(json());
 
 app.use("/api/user", userRouter);
 app.use("/api/collection", collectionRouter);
+app.use("/api/document", documentRouter);
 
 app.listen(PORT, () => {
    console.log(` app listening on port ${PORT}`);

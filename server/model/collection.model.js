@@ -11,15 +11,6 @@ const collectionSchema = new Schema(
       schema: {
          type: Schema.Types.Mixed,
       },
-      // proprietors: [
-      //    {
-      //       userId: {
-      //          type: Schema.Types.ObjectId,
-      //          ref: "User",
-      //          required: true,
-      //       },
-      //    },
-      // ],
       owner: {
          userId: {
             type: Schema.Types.ObjectId,
@@ -29,7 +20,7 @@ const collectionSchema = new Schema(
    {strict: false}
 );
 
-// Updates the user with the collection reference
+// Updates the user with the collection id
 collectionSchema.pre("save", async function (next) {
    const currentUser = this;
    if (currentUser.isModified("proprietors")) {

@@ -2,19 +2,20 @@ import {Router} from "express";
 import {
    createUserCollection,
    deleteUserCollection,
-   getUserCollection,
    getAllUserCollections,
    updateUserCollection,
 } from "../controllers/collection.controller.js";
-import {createDocument} from "../controllers/document.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
 import {authUser} from "../middleware/authUser.js";
 
 export const collectionRouter = new Router();
-// Create new collection
+
+//! Collection Routes !!!
+
+// Create New Collection
 collectionRouter.post("/newCollection", authUser, createUserCollection);
 
-// delete a  collection
+// Delete A  Collection
 collectionRouter.delete(
    "/delete/:collectionName",
    authUser,
@@ -22,7 +23,7 @@ collectionRouter.delete(
    deleteUserCollection
 );
 
-// update a  collection
+// Update A  Collection
 collectionRouter.put(
    "/update/:collectionName",
    authUser,
@@ -30,21 +31,5 @@ collectionRouter.put(
    updateUserCollection
 );
 
-// Get a collection
-collectionRouter.get(
-   "/:collectionName",
-   authUser,
-   authCollection,
-   getUserCollection
-);
-
-// Get all collections
+// Get All Collections
 collectionRouter.get("/", authUser, getAllUserCollections);
-
-// Create a document
-collectionRouter.post(
-   "/:collectionName",
-   authUser,
-   authCollection,
-   createDocument
-);
