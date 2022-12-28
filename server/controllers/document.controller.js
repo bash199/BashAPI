@@ -13,9 +13,12 @@ export const updateDocument = async (req, res) => {
    try {
       const {Model, body} = req;
       const {id} = req.params;
-      const updatedDoc = await Model.findByIdAndUpdate({_id: id}, {...body});
-      if (!updatedDoc) throw new Error("Document Not Found");
-      res.status(202).send(updatedDoc);
+      const updatedDocument = await Model.findByIdAndUpdate(
+         {_id: id},
+         {...body}
+      );
+      if (!updatedDocument) throw new Error("Document Not Found");
+      res.status(202).send(updatedDocument);
    } catch (err) {
       console.log(err);
       res.status(404).send(err.message);
@@ -29,6 +32,19 @@ export const getDocument = async (req, res) => {
       const document = await Model.findById({_id});
       if (!document) throw new Error("Document Not Found");
       res.status(200).send(document);
+   } catch (err) {
+      console.log(err);
+      res.status(404).send(err.message);
+   }
+};
+
+export const deleteDocument = async (req, res) => {
+   try {
+      const {Model} = req;
+      const _id = req.params.id;
+      const deletedDocument = await Model.findByIdAndDelete({_id});
+      if (!deletedDocument) throw new Error("Document Not Found");
+      res.status(200).send(deletedDocument);
    } catch (err) {
       console.log(err);
       res.status(404).send(err.message);

@@ -4,6 +4,7 @@ import {
    createDocument,
    updateDocument,
    getDocument,
+   deleteDocument,
 } from "../controllers/document.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
 import {authUser} from "../middleware/authUser.js";
@@ -41,4 +42,12 @@ documentRouter.put(
    authUser,
    authCollection,
    updateDocument
+);
+
+// Delete A Document By ID
+documentRouter.delete(
+   "/:collectionName/:id",
+   authUser,
+   authCollection,
+   deleteDocument
 );
