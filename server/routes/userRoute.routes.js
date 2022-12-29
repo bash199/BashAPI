@@ -7,6 +7,14 @@ export const userRouter = new Router();
 //! User Routes  !!!
 
 userRouter.get("/checkToken", authUser, (req, res) => res.send(req.user));
+userRouter.get("/test", (req, res) =>{
+   try {
+      console.log('ok');
+      res.send("ok")
+   } catch (error) {
+      res.send(error)
+   }
+   });
 
 userRouter.post("/register", register);
 

@@ -13,8 +13,10 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-   const {password, email} = req.body;
    try {
+      const {password, email} = req.body;
+      console.log("login");
+      console.log(req.body);
       const user = await User.findByCredentials(email, password);
       const token = await user.generateAuthToken();
       res.send({user, token});

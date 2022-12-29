@@ -25,7 +25,13 @@ const Login = () => {
       <Div>
          <H3>SIGN IN</H3>
          <InnerDiv>
-
+            <div>
+               <label>Email</label>
+               <input placeholder="..." name="email" type="text" />
+            </div>
+            <label>Password</label>
+            <input placeholder="..." name="password" type="text" />
+            <button>Login</button>
          </InnerDiv>
       </Div>
    );

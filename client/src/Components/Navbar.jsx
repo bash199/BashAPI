@@ -24,22 +24,22 @@ const LeftBox = styled.div`
    display: flex;
    justify-content: space-between;
 `;
-const LogoBox = styled.div`
-   width: 70px;
-   height: 100%;
-   background-color: #c4c4c4;
-   text-align: center;
-   display: grid;
-   align-items: center;
-`;
-const Login = styled.div`
-   width: 60px;
-   height: 100%;
-   background-color: #c4c4c4;
-   text-align: center;
-   display: grid;
-   align-items: center;
-`;
+// const LogoBox = styled.div`
+//    width: 70px;
+//    height: 100%;
+//    background-color: #c4c4c4;
+//    text-align: center;
+//    display: grid;
+//    align-items: center;
+//  `;
+// const Login = styled.div`
+//    width: 60px;
+//    height: 100%;
+//    background-color: #c4c4c4;
+//    text-align: center;
+//    display: grid;
+//    align-items: center;
+// `;
 
 const Navbar = () => {
    return (
