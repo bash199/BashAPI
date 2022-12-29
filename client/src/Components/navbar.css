@@ -1,0 +1,9 @@
+.home {
+   color: aqua;
+}
+.notactive {
+   display: none;
+}
+a {
+   text-decoration: none;
+}
