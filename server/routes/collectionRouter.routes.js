@@ -32,4 +32,4 @@ collectionRouter.put(
 );
 
 // Get All Collections
-collectionRouter.get("/", authUser, getAllUserCollections);
+collectionRouter.get("/:token", authUser, getAllUserCollections);

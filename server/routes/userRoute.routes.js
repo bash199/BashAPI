@@ -7,20 +7,20 @@ export const userRouter = new Router();
 //! User Routes  !!!
 
 userRouter.get("/checkToken", authUser, (req, res) => res.send(req.user));
-userRouter.get("/test", (req, res) =>{
+userRouter.get("/test", (req, res) => {
    try {
-      console.log('ok');
-      res.send("ok")
+      console.log("ok");
+      res.send("ok");
    } catch (error) {
-      res.send(error)
+      res.send(error);
    }
-   });
+});
 
 userRouter.post("/register", register);
 
 userRouter.post("/login", login);
 
-userRouter.post("/logout", authUser, logout);
+userRouter.post("/logout/:token", authUser, logout);
 
 userRouter.get("/user/me", authUser, async (req, res) => {
    res.send(req.user);

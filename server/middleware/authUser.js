@@ -3,11 +3,12 @@ import {User} from "../model/user.model.js";
 
 // Authenticate user
 export const authUser = async (req, res, next) => {
-   // const {token} = req.params;
+   const {token} = req.params;
    try {
       console.log("authUser");
+      console.log(token);
       const secret = process.env.AUTH_SECRET;
-      const token = req.header("Authorization").replace("Bearer ", "");
+      // const token = req.header("Authorization").replace("Bearer ", "");
       const decoded = jwt.verify(token, secret);
       const user = await User.findOne({
          _id: decoded._id,

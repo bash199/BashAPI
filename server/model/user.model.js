@@ -23,7 +23,6 @@ const userSchema = new Schema({
       type: String,
       required: true,
       trim: true,
-      minlength: 6,
    },
    tokens: [
       {
@@ -61,7 +60,6 @@ userSchema.methods.generateAuthToken = async function () {
 
 userSchema.statics.findByCredentials = async (email, password) => {
    const user = await User.findOne({email});
-
    if (!user) {
       throw new Error("Unable to login");
    }

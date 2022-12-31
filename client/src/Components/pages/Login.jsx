@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
+import {Api} from "../../api/Api";
+import {useNavigate} from "react-router-dom";
 
 const Div = styled.div`
    display: flex;
@@ -21,17 +22,57 @@ const H3 = styled.h3`
 `;
 
 const Login = () => {
+   const [inputs, setInputs] = useState({
+      email: "",
+      password: "",
+   });
+   const navigate = useNavigate();
+   const Clickhandle = async (event) => {
+      event.preventDefault();
+      try {
+         if (!inputs.email || !inputs.password)
+            throw new Error("Please fill the fields");
+         const {data} = await Api.post("/user/login", inputs);
+         console.log(data);
+         localStorage.setItem("BashApitoken", data.token);
+         navigate("/");
+         setInputs({
+            email: "",
+            password: "",
+         });
+      } catch (error) {
+         console.log(error);
+         console.log(error.response.data);
+      }
+   };
+
+   const handleInputChange = async ({target: {name, value}}) => {
+      setInputs((prev) => {
+         return {...prev, [name]: value};
+      });
+   };
+
    return (
       <Div>
          <H3>SIGN IN</H3>
          <InnerDiv>
             <div>
                <label>Email</label>
-               <input placeholder="..." name="email" type="text" />
+               <input
+                  onChange={handleInputChange}
+                  placeholder="..."
+                  name="email"
+                  type="text"
+               />
             </div>
             <label>Password</label>
-            <input placeholder="..." name="password" type="text" />
-            <button>Login</button>
+            <input
+               onChange={handleInputChange}
+               placeholder="..."
+               name="password"
+               type="text"
+            />
+            <button onClick={Clickhandle}>Login</button>
          </InnerDiv>
       </Div>
    );

@@ -3,12 +3,13 @@ import "./db/mongoose.js";
 import {userRouter} from "./routes/userRoute.routes.js";
 import {collectionRouter} from "./routes/collectionRouter.routes.js";
 import {documentRouter} from "./routes/document.routes.js";
-
+import cors from "cors";
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
 app.use(json());
+app.use(cors());
 
 app.use("/api/user", userRouter);
 app.use("/api/collection", collectionRouter);
