@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import styled from "@emotion/styled";
-// import {useNavigate} from "react-router-dom";
 import {Api} from "../../api/Api";
 import Collection from "../Collection";
-// import {useNavigate} from "react-router-dom";
+import NewResource from "../NewResource";
+
 const HomeDiv = styled.div`
    width: 100%;
    height: 100vh;
@@ -14,21 +14,11 @@ const InnerDiv = styled.div`
    width: 80vw;
    height: 100vh;
    background-color: #dedede;
-   display: grid;
 `;
+
 const Dashboard = () => {
    const [collections, setCollections] = useState([]);
-   // const navigate = useNavigate();
-   // const getAuthHeader = () => {
-   //    const token = localStorage.getItem("BashApitoken");
-   //    console.log(token);
-   //    return {
-   //       headers: {
-   //          Authorization: `Bearer ${token}`,
-   //          "Content-Type": "application/json",
-   //       },
-   //    };
-   // };
+   const [resource, setResource] = useState(false);
 
    useEffect(() => {
       const token = localStorage.getItem("BashApitoken");
@@ -45,7 +35,10 @@ const Dashboard = () => {
    return (
       <HomeDiv>
          <InnerDiv>
-            Dashboard
+            <button onClick={() => setResource((prev) => !prev)}>
+               New Resource
+            </button>
+            {resource && <NewResource setResource={setResource}/>}
             {collections.map((collection) => {
                return (
                   <Collection key={collection._id} collection={collection} />

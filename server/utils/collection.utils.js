@@ -44,6 +44,15 @@ export const updateCollection = async (
    const newSchema = await modifieSchema(schema, removedFields, addedFields);
    return newSchema;
 };
+export const addDocs = async (user) => {
+   user.collections.forEach(async ({documentCount, name}) => {
+      const {schema} = await CollectionModel.findOne({name});
+      const Model = await createModel(name, schema);
+      documentCount = await Model.countDocuments({});
+      // collec.documentCount = +DocumentsCount;
+   });
+   return await user.save();
+};
 
 // const {schema} = await CollectionModel.findOne({name: collec.name});
 // const Model = await createModel(collec.name, schema);

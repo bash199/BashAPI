@@ -4,6 +4,7 @@ const Div = styled.div`
    width: 50%;
    height: 80px;
    padding: 0 10px 0 10px;
+   margin: 10px;
    background-color: aliceblue;
 `;
 const reverseGeneratedName = (name) => {

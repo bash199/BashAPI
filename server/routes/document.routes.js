@@ -30,7 +30,7 @@ documentRouter.get(
 
 // Create A Document
 documentRouter.post(
-   "/:collectionName",
+   "/:token/:collectionName",
    authUser,
    authCollection,
    createDocument

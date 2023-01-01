@@ -6,7 +6,6 @@ export const authUser = async (req, res, next) => {
    const {token} = req.params;
    try {
       console.log("authUser");
-      console.log(token);
       const secret = process.env.AUTH_SECRET;
       // const token = req.header("Authorization").replace("Bearer ", "");
       const decoded = jwt.verify(token, secret);

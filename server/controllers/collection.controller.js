@@ -2,6 +2,7 @@ import {
    createCollection,
    deleteCollection,
    updateCollection,
+   addDocs,
 } from "../utils/collection.utils.js";
 
 export const createUserCollection = async (req, res) => {
@@ -60,7 +61,8 @@ export const getUserCollection = async (req, res) => {
 export const getAllUserCollections = async (req, res) => {
    try {
       const {user} = req;
-      res.status(200).send(user.collections);
+      const userr = await addDocs(user);
+      res.status(200).send(userr.collections);
    } catch (err) {
       console.log(err);
       res.status(404).send(err.message);

@@ -1,7 +1,7 @@
 import "./App.css";
 import Routes from "../routes/routes";
 import Navbar from "./Navbar";
-import {useEffect,useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
    const [token, setToken] = useState(null);
@@ -13,7 +13,7 @@ function App() {
    }, []);
    return (
       <div>
-         <Navbar token={token}/>
+         <Navbar token={token} />
          <Routes />
       </div>
    );

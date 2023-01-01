@@ -13,11 +13,11 @@ export const collectionRouter = new Router();
 //! Collection Routes !!!
 
 // Create New Collection
-collectionRouter.post("/newCollection", authUser, createUserCollection);
+collectionRouter.post("/:token/newCollection", authUser, createUserCollection);
 
 // Delete A  Collection
 collectionRouter.delete(
-   "/delete/:collectionName",
+   "/delete/:token/:collectionName",
    authUser,
    authCollection,
    deleteUserCollection
@@ -25,7 +25,7 @@ collectionRouter.delete(
 
 // Update A  Collection
 collectionRouter.put(
-   "/update/:collectionName",
+   "/update/:token/:collectionName",
    authUser,
    authCollection,
    updateUserCollection
