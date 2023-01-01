@@ -35,13 +35,12 @@ export const deleteCollection = async (user, collection) => {
 export const updateCollection = async (
    collection,
    schema,
-   addedFields,
    updatedSchema,
    removedFields
 ) => {
    collection.schema = updatedSchema;
    await collection.save();
-   const newSchema = await modifieSchema(schema, removedFields, addedFields);
+   const newSchema = await modifieSchema(schema, removedFields, updatedSchema);
    return newSchema;
 };
 export const addDocs = async (user) => {

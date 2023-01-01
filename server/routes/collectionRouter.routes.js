@@ -4,6 +4,7 @@ import {
    deleteUserCollection,
    getAllUserCollections,
    updateUserCollection,
+   getACollection
 } from "../controllers/collection.controller.js";
 import {authCollection} from "../middleware/authCollection.js";
 import {authUser} from "../middleware/authUser.js";
@@ -30,6 +31,15 @@ collectionRouter.put(
    authCollection,
    updateUserCollection
 );
+
+// Get A Collection
+collectionRouter.get(
+   "/get/:token/:collectionName",
+   authUser,
+   authCollection,
+   getACollection
+);
+
 
 // Get All Collections
 collectionRouter.get("/:token", authUser, getAllUserCollections);

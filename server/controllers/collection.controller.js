@@ -19,13 +19,12 @@ export const createUserCollection = async (req, res) => {
 
 export const updateUserCollection = async (req, res) => {
    try {
-      const {addedFields, updatedSchema, removedFields} = req.body;
+      const {updatedSchema, removedFields} = req.body;
       const {collection, schema} = req;
 
       const updatedCollection = await updateCollection(
          collection,
          schema,
-         addedFields,
          updatedSchema,
          removedFields
       );
@@ -63,6 +62,16 @@ export const getAllUserCollections = async (req, res) => {
       const {user} = req;
       const userr = await addDocs(user);
       res.status(200).send(userr.collections);
+   } catch (err) {
+      console.log(err);
+      res.status(404).send(err.message);
+   }
+};
+
+export const getACollection = async (req, res) => {
+   try {
+      const {collection} = req;
+      res.status(200).send(collection);
    } catch (err) {
       console.log(err);
       res.status(404).send(err.message);

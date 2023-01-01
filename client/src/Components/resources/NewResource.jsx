@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "@emotion/styled";
-import {Api} from "../api/Api";
+import {Api} from "../../api/Api";
 
 export const Overlay = styled.div`
    position: absolute;
@@ -25,6 +25,7 @@ const NewResource = ({setResource}) => {
    const [fields, setFields] = useState([{name: "", type: ""}]);
    const [name, setName] = useState("");
    const [token, setToken] = useState(null);
+
    useEffect(() => {
       setToken(localStorage.getItem("BashApitoken"));
    }, []);
@@ -84,6 +85,7 @@ const NewResource = ({setResource}) => {
                      <input
                         id="ResourceName"
                         type="text"
+                        placeholder="Example: users, comments, articles"
                         value={name}
                         onChange={({target: {value}}) => setName(value)}
                      />
@@ -101,6 +103,7 @@ const NewResource = ({setResource}) => {
                         <input
                            type="text"
                            name="name"
+                           placeholder="Field name"
                            value={field.name}
                            onChange={(e) => handleChange(i, e)}
                         />
@@ -110,7 +113,7 @@ const NewResource = ({setResource}) => {
                            value={field.type}
                            onChange={(e) => handleChange(i, e)}
                         >
-                           <option value="">--</option>
+                           <option value="">---</option>
                            <option value="String">String</option>
                            <option value="Number">Number</option>
                            <option value="Boolean">Boolean</option>

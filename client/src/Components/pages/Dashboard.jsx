@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 import Collection from "../Collection";
-import NewResource from "../NewResource";
+import NewResource from "../resources/NewResource";
 
 const HomeDiv = styled.div`
    width: 100%;
@@ -38,7 +38,7 @@ const Dashboard = () => {
             <button onClick={() => setResource((prev) => !prev)}>
                New Resource
             </button>
-            {resource && <NewResource setResource={setResource}/>}
+            {resource && <NewResource setResource={setResource} />}
             {collections.map((collection) => {
                return (
                   <Collection key={collection._id} collection={collection} />
