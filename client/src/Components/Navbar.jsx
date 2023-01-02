@@ -43,7 +43,7 @@ const LeftBox = styled.div`
 //    align-items: center;
 // `;
 
-const Navbar = ({token}) => {
+const Navbar = ({token,setToken}) => {
    const [state, setState] = useState(null);
    const navigate = useNavigate();
 
@@ -56,6 +56,7 @@ const Navbar = ({token}) => {
       try {
          await Api.post(`/user/logout/${token}`);
          localStorage.removeItem("BashApitoken");
+         setToken(null)
          navigate("/");
       } catch (error) {
          console.log(error);

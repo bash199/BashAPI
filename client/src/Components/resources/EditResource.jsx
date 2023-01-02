@@ -27,33 +27,31 @@ const FormBox = styled.div`
 const EditResource = ({setEdit, collection}) => {
    const collecName = reverseGeneratedName(collection.name);
    const [fields, setFields] = useState([]);
-   const [fields2, setFields2] = useState([]);
    const [removedFields, setRemovedFields] = useState([]);
-   const [addedFields, setAddedFields] = useState([]);
    const [token] = useState(localStorage.getItem("BashApitoken"));
 
-   useEffect(() => {
-      const getData = async () => {
-         try {
-            const {
-               data: {schema},
-            } = await Api.get(`/collection/get/${token}/${collecName}`);
-            for (const key in schema) {
-               if (schema[key]) {
-                  setFields((prev) => {
-                     return [...prev, {name: key, type: schema[key]}];
-                  });
-               }
+   const getData = async () => {
+      try {
+         const {
+            data: {schema},
+         } = await Api.get(`/collection/get/${token}/${collecName}`);
+         for (const key in schema) {
+            if (schema[key]) {
+               setFields((prev) => {
+                  return [...prev, {name: key, type: schema[key]}];
+               });
             }
-         } catch (err) {
-            console.log(err);
          }
-      };
+      } catch (err) {
+         console.log(err);
+      }
+   };
+   useEffect(() => {
       getData();
       // eslint-disable-next-line
    }, []);
 
-   const handleChange = (i, {target: {value, name}}) => {
+   const handleChange = (i, {value, name}) => {
       const values = [...fields];
       values[i][name] = value;
       setFields(values);
@@ -85,23 +83,27 @@ const EditResource = ({setEdit, collection}) => {
    const handleUpdate = async () => {
       try {
          const updatedSchema = fillSchema();
-         const data = await Api.post(`collection/update/${token}/${collecName}`, {
-            updatedSchema,
-            removedFields,
-         });
+         const data = await Api.put(
+            `/collection/update/${token}/${collecName}`,
+            {
+               updatedSchema,
+               removedFields,
+            }
+         );
          console.log(data);
          setEdit((prev) => !prev);
+         getData()
       } catch (err) {
          console.log(err.response);
       }
    };
+
    return (
       <div>
          <Overlay>
             <FormBox>
                <button onClick={() => setEdit((prev) => !prev)}>X</button>
                <h4>Schema </h4>
-               {/* {console.log()} */}
                <small>
                   Define Resource schema, it will be used to generate mock data.
                </small>
@@ -115,12 +117,12 @@ const EditResource = ({setEdit, collection}) => {
                            name="name"
                            placeholder="Field name"
                            value={field.name}
-                           onChange={(e) => handleChange(i, e)}
+                           onChange={({target}) => handleChange(i, target)}
                         />
                         <select
                            name="type"
                            value={field.type}
-                           onChange={(e) => handleChange(i, e)}
+                           onChange={({target}) => handleChange(i, target)}
                         >
                            <option value="">---</option>
                            <option value="String">String</option>

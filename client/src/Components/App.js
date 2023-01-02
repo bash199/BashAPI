@@ -13,7 +13,7 @@ function App() {
    }, []);
    return (
       <div>
-         <Navbar token={token} />
+         <Navbar setToken={setToken} token={token} />
          <Routes />
       </div>
    );

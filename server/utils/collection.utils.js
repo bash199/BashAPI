@@ -22,14 +22,18 @@ export const createCollection = async (schema, collectionName, user) => {
 };
 
 export const deleteCollection = async (user, collection) => {
-   await CollectionModel.findOneAndDelete({name: collection.name});
-   user.collections = user.collections.filter(
-      (el) => el.name !== collection.name
-   );
-   mongoose.connection.dropCollection(collection.name);
-   deleteModel(collection.name);
-   const modifiedUser = await user.save();
-   return modifiedUser;
+   try {
+      await CollectionModel.findOneAndDelete({name: collection.name});
+      user.collections = user.collections.filter(
+         (el) => el.name !== collection.name
+      );
+      mongoose.connection.dropCollection(collection.name);
+      deleteModel(collection.name);
+      const modifiedUser = await user.save();
+      return modifiedUser;
+   } catch (error) {
+      console.log(error);
+   }
 };
 
 export const updateCollection = async (
@@ -43,14 +47,26 @@ export const updateCollection = async (
    const newSchema = await modifieSchema(schema, removedFields, updatedSchema);
    return newSchema;
 };
+
 export const addDocs = async (user) => {
-   user.collections.forEach(async ({documentCount, name}) => {
-      const {schema} = await CollectionModel.findOne({name});
-      const Model = await createModel(name, schema);
-      documentCount = await Model.countDocuments({});
-      // collec.documentCount = +DocumentsCount;
-   });
-   return await user.save();
+   user.collections = user.collections.map(
+      async (cc) => {
+         const collection = await CollectionModel.findOne({name:cc.name});
+         if (collection) {
+            const Model = await createModel(cc.name, collection.schema);
+            cc.documentCount = await Model.countDocuments({});
+         }
+         console.log(cc.name);
+         return {
+            name:cc.name,
+            collectionId:cc.collectionId,
+            _id:cc._id,
+            documentCount:cc.documentCount,
+         };
+      }
+   );
+   const countDocsUser = await user.save();
+   return countDocsUser;
 };
 
 // const {schema} = await CollectionModel.findOne({name: collec.name});

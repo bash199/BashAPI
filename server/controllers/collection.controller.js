@@ -60,8 +60,8 @@ export const getUserCollection = async (req, res) => {
 export const getAllUserCollections = async (req, res) => {
    try {
       const {user} = req;
-      const userr = await addDocs(user);
-      res.status(200).send(userr.collections);
+      // await addDocs(user);
+      res.status(200).send(user.collections);
    } catch (err) {
       console.log(err);
       res.status(404).send(err.message);
