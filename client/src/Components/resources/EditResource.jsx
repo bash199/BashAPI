@@ -16,7 +16,7 @@ export const Overlay = styled.div`
    z-index: 0;
 `;
 
-const FormBox = styled.div`
+export const FormBox = styled.div`
    max-width: 50%;
    height: 80vh;
    padding: 10px;
@@ -24,6 +24,18 @@ const FormBox = styled.div`
    background-color: antiquewhite;
 `;
 
+const ExitButtonBox = styled.div`
+   width: 100%;
+   margin: 5px 0 5px 0;
+   display: flex;
+   justify-content: end;
+`;
+const ButtonsBox = styled.div`
+   width: 100%;
+   margin: 5px 0 5px 0;
+   display: flex;
+   justify-content: center;
+`;
 const EditResource = ({setEdit, collection}) => {
    const collecName = reverseGeneratedName(collection.name);
    const [fields, setFields] = useState([]);
@@ -90,9 +102,8 @@ const EditResource = ({setEdit, collection}) => {
                removedFields,
             }
          );
-         console.log(data);
+         // console.log(data);
          setEdit((prev) => !prev);
-         getData()
       } catch (err) {
          console.log(err.response);
       }
@@ -102,7 +113,9 @@ const EditResource = ({setEdit, collection}) => {
       <div>
          <Overlay>
             <FormBox>
-               <button onClick={() => setEdit((prev) => !prev)}>X</button>
+               <ExitButtonBox>
+                  <button onClick={() => setEdit((prev) => !prev)}>X</button>
+               </ExitButtonBox>
                <h4>Schema </h4>
                <small>
                   Define Resource schema, it will be used to generate mock data.
@@ -141,11 +154,28 @@ const EditResource = ({setEdit, collection}) => {
                   </button>
                </form>
                <div>
+                  <h5>
+                     GET ={">"} /{collecName}
+                  </h5>
+                  <h5>
+                     GET ={">"} /{collecName}/:id
+                  </h5>
+                  <h5>
+                     POST ={">"} /{collecName}
+                  </h5>
+                  <h5>
+                     PUT ={">"} /{collecName}/:id
+                  </h5>
+                  <h5>
+                     DELETE ={">"} /{collecName}/:id
+                  </h5>
+               </div>
+               <ButtonsBox>
                   <button onClick={handleUpdate}>Update</button>
                   <button onClick={() => setEdit((prev) => !prev)}>
                      Cancel
                   </button>
-               </div>
+               </ButtonsBox>
             </FormBox>
          </Overlay>
       </div>

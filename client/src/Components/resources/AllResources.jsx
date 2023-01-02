@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import styled from "@emotion/styled";
-import {Api} from "../api/Api";
-import EditResource from "./resources/EditResource";
-import {reverseGeneratedName} from "../utils/reverseGeneratedName";
+import {Api} from "../../api/Api";
+import EditResource from "./EditResource";
+import {reverseGeneratedName} from "../../utils/reverseGeneratedName";
+import ResourceData from "./ResourceData";
 const Div = styled.div`
    width: 50%;
    height: 80px;
@@ -13,6 +14,7 @@ const Div = styled.div`
 
 const Collection = ({collection}) => {
    const [edit, setEdit] = useState(false);
+   const [data, setData] = useState(false);
    const token = localStorage.getItem("BashApitoken");
    const name = reverseGeneratedName(collection.name);
 
@@ -22,7 +24,7 @@ const Collection = ({collection}) => {
             const {data} = await Api.delete(
                `/collection/delete/${token}/${name}`
             );
-            console.log(data);
+            // console.log(data);
          } else {
             throw new Error("Please Login");
          }
@@ -34,17 +36,21 @@ const Collection = ({collection}) => {
    const handleEdit = async () => {
       setEdit((prev) => !prev);
    };
+   const handleData = async () => {
+      setData((prev) => !prev);
+   };
 
    return (
       <Div>
          <div>{name}</div>
          <div>Documents: {collection.documentCount}</div>
          <div>
-            <button>Data</button>
+            <button onClick={handleData}>Data</button>
             <button onClick={handleEdit}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
          </div>
          {edit && <EditResource collection={collection} setEdit={setEdit} />}
+         {data && <ResourceData collection={collection} setData={setData} />}
       </Div>
    );
 };

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
-import Collection from "../Collection";
+import Collection from "../resources/AllResources";
 import NewResource from "../resources/NewResource";
 
 const HomeDiv = styled.div`
@@ -13,18 +13,18 @@ const HomeDiv = styled.div`
 const InnerDiv = styled.div`
    width: 80vw;
    height: 100vh;
+   padding: 5px;
    background-color: #dedede;
 `;
 
 const Dashboard = () => {
    const [collections, setCollections] = useState([]);
    const [resource, setResource] = useState(false);
+   const [token] = useState(localStorage.getItem("BashApitoken"));
 
    useEffect(() => {
-      const token = localStorage.getItem("BashApitoken");
       const getCollections = async () => {
          const {data} = await Api.get(`/collection/${token}`);
-         console.log(data);
          setCollections(data);
       };
       getCollections();
@@ -38,6 +38,8 @@ const Dashboard = () => {
             <button onClick={() => setResource((prev) => !prev)}>
                New Resource
             </button>
+            <h4>API endpoint</h4>
+            <p>{`http://localhost:4000/api/${token}/:endpoint`}</p>
             {resource && <NewResource setResource={setResource} />}
             {collections.map((collection) => {
                return (

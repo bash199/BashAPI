@@ -5,7 +5,6 @@ if (process.env.NODE_ENV === "production") {
    url = "/api";
 }
 
-
 export const Api = axios.create({
    baseURL: url,
 });

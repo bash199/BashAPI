@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "@emotion/styled";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import "./navbar.css";
 import {Api} from "../api/Api";
 import {useState} from "react";
@@ -43,20 +43,20 @@ const LeftBox = styled.div`
 //    align-items: center;
 // `;
 
-const Navbar = ({token,setToken}) => {
+const Navbar = ({token, setToken}) => {
    const [state, setState] = useState(null);
    const navigate = useNavigate();
-
+   let {pathname} = useLocation();
    useEffect(() => {
+      setToken(localStorage.getItem("BashApitoken"));
       setState(show());
-      // eslint-disable-next-line
-   }, [token]);
+   }, [pathname]);
 
    const handleLogout = async () => {
       try {
          await Api.post(`/user/logout/${token}`);
          localStorage.removeItem("BashApitoken");
-         setToken(null)
+         setToken(null);
          navigate("/");
       } catch (error) {
          console.log(error);

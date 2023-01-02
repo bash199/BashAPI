@@ -14,7 +14,7 @@ export const documentRouter = new Router();
 //! Document Routes  !!!
 // Get A Collection / All Documents
 documentRouter.get(
-   "/:collectionName",
+   "/:token/:collectionName",
    authUser,
    authCollection,
    getUserCollection

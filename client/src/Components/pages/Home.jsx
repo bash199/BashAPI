@@ -14,9 +14,8 @@ const InnerDiv = styled.div`
    display: grid;
 `;
 const Home = () => {
-   // const [first, setfirst] = useState(null);
    const navigate = useNavigate();
-   
+
    useEffect(() => {
       const token = localStorage.getItem("BashApitoken");
       if (!token) return navigate("/");

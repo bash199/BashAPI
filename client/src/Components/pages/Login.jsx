@@ -33,7 +33,7 @@ const Login = () => {
          if (!inputs.email || !inputs.password)
             throw new Error("Please fill the fields");
          const {data} = await Api.post("/user/login", inputs);
-         console.log(data);
+         // console.log(data);
          localStorage.setItem("BashApitoken", data.token);
          navigate("/");
          setInputs({

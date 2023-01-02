@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 
@@ -21,14 +21,17 @@ const FormBox = styled.div`
    border-radius: 7px;
    background-color: antiquewhite;
 `;
+const ButtonBox = styled.div`
+   width: 100%;
+   margin: 5px 0 5px 0;
+   display: flex;
+   justify-content: end;
+`;
 const NewResource = ({setResource}) => {
    const [fields, setFields] = useState([{name: "", type: ""}]);
    const [name, setName] = useState("");
-   const [token, setToken] = useState(null);
-
-   useEffect(() => {
-      setToken(localStorage.getItem("BashApitoken"));
-   }, []);
+   // const [error, setError] = useState("");
+   const [token] = useState(localStorage.getItem("BashApitoken"));
 
    const handleChange = (i, {target: {value, name}}) => {
       const values = [...fields];
@@ -63,10 +66,10 @@ const NewResource = ({setResource}) => {
             name,
             schema,
          });
-         console.log(data);
+         // console.log(data);
          setResource((prev) => !prev);
       } catch (err) {
-         console.log(err);
+         console.log(err.response);
       }
    };
 
@@ -74,7 +77,11 @@ const NewResource = ({setResource}) => {
       <div>
          <Overlay>
             <FormBox>
-               <button onClick={() => setResource((prev) => !prev)}>X</button>
+               <ButtonBox>
+                  <button onClick={() => setResource((prev) => !prev)}>
+                     X
+                  </button>
+               </ButtonBox>
                <div>
                   <h4>Resource Name</h4>
                   <small htmlFor="ResourceName">
