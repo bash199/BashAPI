@@ -22,11 +22,11 @@ const Dashboard = () => {
    const [resource, setResource] = useState(false);
    const [token] = useState(localStorage.getItem("BashApitoken"));
 
+   const getCollections = async () => {
+      const {data} = await Api.get(`/collection/${token}`);
+      setCollections(data);
+   };
    useEffect(() => {
-      const getCollections = async () => {
-         const {data} = await Api.get(`/collection/${token}`);
-         setCollections(data);
-      };
       getCollections();
       return () => {};
       // eslint-disable-next-line
@@ -43,7 +43,7 @@ const Dashboard = () => {
             {resource && <NewResource setResource={setResource} />}
             {collections.map((collection) => {
                return (
-                  <Collection key={collection._id} collection={collection} />
+                  <Collection getCollections={getCollections}  key={collection._id} collection={collection} />
                );
             })}
          </InnerDiv>

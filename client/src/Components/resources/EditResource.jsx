@@ -8,7 +8,7 @@ export const Overlay = styled.div`
    top: 0;
    right: 0;
    left: 0;
-   bottom: -50px;
+   bottom: -55px;
    background-color: rgba(0, 0, 0, 0.4);
    display: grid;
    align-items: center;
@@ -17,11 +17,34 @@ export const Overlay = styled.div`
 `;
 
 export const FormBox = styled.div`
-   max-width: 50%;
-   height: 80vh;
+   max-width: 600px;
+   width: 50%;
+   height: 50vh;
    padding: 10px;
    border-radius: 7px;
    background-color: antiquewhite;
+   -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+   animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+   @media (max-width: 500px) {
+      width: 80%;
+      height: 100vh;
+   }
+   @-webkit-keyframes fade-in {
+      0% {
+         opacity: 0;
+      }
+      100% {
+         opacity: 1;
+      }
+   }
+   @keyframes fade-in {
+      0% {
+         opacity: 0;
+      }
+      100% {
+         opacity: 1;
+      }
+   }
 `;
 
 const ExitButtonBox = styled.div`

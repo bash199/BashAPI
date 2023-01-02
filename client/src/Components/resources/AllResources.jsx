@@ -12,7 +12,7 @@ const Div = styled.div`
    background-color: aliceblue;
 `;
 
-const Collection = ({collection}) => {
+const Collection = ({collection,getCollections}) => {
    const [edit, setEdit] = useState(false);
    const [data, setData] = useState(false);
    const token = localStorage.getItem("BashApitoken");
@@ -21,10 +21,9 @@ const Collection = ({collection}) => {
    const handleDelete = async () => {
       try {
          if (token) {
-            const {data} = await Api.delete(
-               `/collection/delete/${token}/${name}`
-            );
-            // console.log(data);
+            await Api.delete(`/collection/delete/${token}/${name}`);
+            console.log("Resource deleted");
+            getCollections()
          } else {
             throw new Error("Please Login");
          }

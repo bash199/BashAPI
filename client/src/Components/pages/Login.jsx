@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 import {useNavigate} from "react-router-dom";
-
+import "../App.css";
 const Div = styled.div`
    display: flex;
    flex-direction: column;
@@ -56,22 +56,18 @@ const Login = () => {
       <Div>
          <H3>SIGN IN</H3>
          <InnerDiv>
-            <div>
+            <div className="inputGroup">
+               <input onChange={handleInputChange} name="email" type="text" />
                <label>Email</label>
+            </div>
+            <div className="inputGroup">
                <input
                   onChange={handleInputChange}
-                  placeholder="..."
-                  name="email"
+                  name="password"
                   type="text"
                />
+               <label>Password</label>
             </div>
-            <label>Password</label>
-            <input
-               onChange={handleInputChange}
-               placeholder="..."
-               name="password"
-               type="text"
-            />
             <button onClick={Clickhandle}>Login</button>
          </InnerDiv>
       </Div>
