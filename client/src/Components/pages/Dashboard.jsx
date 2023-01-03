@@ -11,6 +11,7 @@ const HomeDiv = styled.div`
    justify-content: center;
 `;
 const InnerDiv = styled.div`
+   max-width: 920px;
    width: 80vw;
    height: 100vh;
    padding: 5px;
@@ -26,6 +27,7 @@ const Dashboard = () => {
       const {data} = await Api.get(`/collection/${token}`);
       setCollections(data);
    };
+
    useEffect(() => {
       getCollections();
       return () => {};
@@ -39,11 +41,15 @@ const Dashboard = () => {
                New Resource
             </button>
             <h4>API endpoint</h4>
-            <p>{`http://localhost:4000/api/${token}/:endpoint`}</p>
+            {/* <p>{`http://localhost:4000/api/document/${token}/:endpoint`}</p> */}
             {resource && <NewResource setResource={setResource} />}
             {collections.map((collection) => {
                return (
-                  <Collection getCollections={getCollections}  key={collection._id} collection={collection} />
+                  <Collection
+                     getCollections={getCollections}
+                     key={collection._id}
+                     collection={collection}
+                  />
                );
             })}
          </InnerDiv>

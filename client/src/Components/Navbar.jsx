@@ -8,40 +8,67 @@ import {useState} from "react";
 const NavBox = styled.nav`
    width: 100%;
    height: 45px;
-   background-color: #d9d9d9;
+   background-color: #fafafa;
    display: flex;
    justify-content: center;
 `;
+
 const InnerBox = styled.div`
-   width: 80%;
+   max-width: 920px;
+   width: 80vw;
    height: 100%;
-   background-color: #d9d9d9;
+   padding:  0 0 0  5px;
+   background-color: #fafafa;
    display: flex;
    justify-content: space-between;
 `;
+
 const LeftBox = styled.div`
-   width: 100px;
+   width: 90px;
    height: 100%;
-   background-color: #d9d9d9;
+   background-color: #fafafa;
    display: flex;
    justify-content: space-between;
+   align-items: center;
 `;
-// const LogoBox = styled.div`
-//    width: 70px;
-//    height: 100%;
-//    background-color: #c4c4c4;
-//    text-align: center;
-//    display: grid;
-//    align-items: center;
-//  `;
-// const Login = styled.div`
-//    width: 60px;
-//    height: 100%;
-//    background-color: #c4c4c4;
-//    text-align: center;
-//    display: grid;
-//    align-items: center;
-// `;
+
+const RightBox = styled.div`
+   width: 90px;
+   height: 100%;
+   background-color: #fafafa;
+   display: flex;
+   justify-content:flex-end;
+   align-items: center;
+`;
+const Logo = styled.div`
+   width: 30px;
+   height: 36px;
+   background-color: #333;
+   box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+   padding: 2px 5px;
+   border-radius: 6px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-content: space-around;
+   color: white;
+`;
+const Small = styled.div`
+   font-size: 14px;
+   color: #a0aec0;
+   text-align: center;
+`;
+const Large = styled.div`
+   letter-spacing: 1px;
+   color: #fff;
+   text-align: center;
+`;
+const Docs = styled.div`
+   color: #333;
+   text-align: center;
+   text-decoration: none;
+   cursor: pointer;
+`;
 
 const Navbar = ({token, setToken}) => {
    const [state, setState] = useState(null);
@@ -66,16 +93,17 @@ const Navbar = ({token, setToken}) => {
    const show = () => {
       if (!token) {
          return (
-            <LeftBox>
-               <Link to={"/register"}>Register</Link>
-               <Link to={"/login"}>Login</Link>
-            </LeftBox>
+            <RightBox>
+               <Link to={"/login"}>
+                  <Docs>Login</Docs>
+               </Link>
+            </RightBox>
          );
       }
       return (
-         <LeftBox>
-            <button onClick={handleLogout}>Logout</button>
-         </LeftBox>
+         <RightBox>
+            <Docs onClick={handleLogout}>Logout</Docs>
+         </RightBox>
       );
    };
 
@@ -83,8 +111,15 @@ const Navbar = ({token, setToken}) => {
       <NavBox>
          <InnerBox>
             <LeftBox>
-               <Link to={"/"}>Home</Link>
-               <Link to={"/docs"}>Docs</Link>
+               <Link to={"/"}>
+                  <Logo>
+                     <Small>Bash</Small>
+                     <Large>API</Large>
+                  </Logo>
+               </Link>
+               <Link to={"/docs"}>
+                  <Docs>Docs</Docs>
+               </Link>
             </LeftBox>
             {state}
          </InnerBox>

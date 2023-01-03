@@ -161,6 +161,13 @@ const NewResource = ({setResource}) => {
                   </button>
                </form>
                <div>
+                  <h5>GET ={">"} /...</h5>
+                  <h5>GET ={">"} /.../:id</h5>
+                  <h5>POST ={">"} /...</h5>
+                  <h5>PUT ={">"} /.../:id</h5>
+                  <h5>DELETE ={">"} /.../:id</h5>
+               </div>
+               <div>
                   <button onClick={handleCreate}>Create</button>
                   <button onClick={() => setResource((prev) => !prev)}>
                      Cancel
