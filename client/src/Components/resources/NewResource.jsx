@@ -86,7 +86,7 @@ const NewResource = ({setResource}) => {
    const handleCreate = async () => {
       try {
          const schema = fillSchema();
-         const data = await Api.post(`/collection/${token}/newCollection`, {
+         await Api.post(`/collection/${token}/newCollection`, {
             name,
             schema,
          });

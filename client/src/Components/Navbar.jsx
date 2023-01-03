@@ -17,7 +17,7 @@ const InnerBox = styled.div`
    max-width: 920px;
    width: 80vw;
    height: 100%;
-   padding:  0 0 0  5px;
+   padding: 0 0 0 5px;
    background-color: #fafafa;
    display: flex;
    justify-content: space-between;
@@ -37,7 +37,7 @@ const RightBox = styled.div`
    height: 100%;
    background-color: #fafafa;
    display: flex;
-   justify-content:flex-end;
+   justify-content: flex-end;
    align-items: center;
 `;
 const Logo = styled.div`
@@ -50,7 +50,7 @@ const Logo = styled.div`
    display: flex;
    flex-direction: column;
    justify-content: center;
-   align-content: space-around;
+   align-items: center;
    color: white;
 `;
 const Small = styled.div`
@@ -77,6 +77,7 @@ const Navbar = ({token, setToken}) => {
    useEffect(() => {
       setToken(localStorage.getItem("BashApitoken"));
       setState(show());
+      // eslint-disable-next-line
    }, [pathname]);
 
    const handleLogout = async () => {
