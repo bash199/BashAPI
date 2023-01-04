@@ -1,18 +1,28 @@
 import React, {useEffect} from "react";
 import styled from "@emotion/styled";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import "../App.css";
+import { Btn2 } from "../resources/NewResource";
 const HomeDiv = styled.div`
    width: 100%;
-   height: 100vh;
+   height: calc(100vh - 45px);
    display: grid;
    justify-content: center;
 `;
+
 const InnerDiv = styled.div`
    width: 80vw;
-   height: 100vh;
-   background-color: #dedede;
-   display: grid;
+   height: 40vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 `;
+const TextBox = styled.div`
+   text-align: center;
+`;
+
+ 
+
 const Home = () => {
    const navigate = useNavigate();
 
@@ -27,7 +37,21 @@ const Home = () => {
 
    return (
       <HomeDiv>
-         <InnerDiv>Home</InnerDiv>
+         <InnerDiv>
+            <TextBox>
+               <h2>bashapi.com</h2>
+               <p>
+                  The easiest way to mock REST APIs! (Check out{" "}
+                  <Link id="aa" to={"/docs"}>
+                     docs
+                  </Link>
+                  )
+               </p>
+               <Link to={"/login"}>
+                  <Btn2>Get Started</Btn2>
+               </Link>
+            </TextBox>
+         </InnerDiv>
       </HomeDiv>
    );
 };

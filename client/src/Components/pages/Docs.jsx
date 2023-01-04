@@ -10,7 +10,7 @@ const HomeDiv = styled.div`
 const InnerDiv = styled.div`
    width: 80vw;
    height: 100vh;
-   background-color: #dedede;
+   background-color: #fff;
    display: grid;
 `;
 const Docs = () => {

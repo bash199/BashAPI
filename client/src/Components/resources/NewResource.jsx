@@ -67,7 +67,7 @@ export const Input = styled.input`
 
 export const RescorceNmeInput = styled.input`
    border-style: solid;
-   width: calc(100% - 14px);
+   width: calc(100% - 22px);
    font-weight: 500;
    font-size: 17px;
    padding: 5px 7px;
@@ -166,11 +166,15 @@ export const FormInnerBox = styled.div`
 `;
 export const FormOverFlowDiv = styled.div`
    overflow: auto;
-`
+`;
+const RescorceNameBox = styled.div`
+   display: flex;
+   justify-content: center;
+`;
 const NewResource = ({setResource}) => {
    const [fields, setFields] = useState([{name: "", type: ""}]);
    const [name, setName] = useState("");
-   // const [error, setError] = useState("");
+   const [error, setError] = useState("");
    const [token] = useState(localStorage.getItem("BashApitoken"));
 
    const handleChange = (i, {target: {value, name}}) => {
@@ -209,7 +213,14 @@ const NewResource = ({setResource}) => {
          // console.log(data);
          setResource((prev) => !prev);
       } catch (err) {
-         console.log(err.response);
+         if (err.response.data) {
+            const i = err.response.data.indexOf(":");
+            const str = err.response.data.substr(0, i);
+            if (str === "E11000 duplicate key error collection") {
+               return setError("Resource Name allready in use");
+            }
+         }
+         console.log(err);
       }
    };
    return (
@@ -225,11 +236,12 @@ const NewResource = ({setResource}) => {
                      </ButtonBox>
                      <div>
                         <h4>Resource Name</h4>
+                        <h6 style={{color: "brown"}}>{error}</h6>
                         <small htmlFor="ResourceName">
                            Enter meaningful resource name, it will be used to
                            generate API endpoints.
                         </small>
-                        <div>
+                        <RescorceNameBox>
                            <RescorceNmeInput
                               id="ResourceName"
                               type="text"
@@ -237,7 +249,7 @@ const NewResource = ({setResource}) => {
                               value={name}
                               onChange={({target: {value}}) => setName(value)}
                            />
-                        </div>
+                        </RescorceNameBox>
                      </div>
                      <h4>Schema </h4>
                      <small>
