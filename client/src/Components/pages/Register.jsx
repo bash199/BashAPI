@@ -4,13 +4,13 @@ import {Api} from "../../api/Api";
 import {Link, useNavigate} from "react-router-dom";
 import {toast, Toaster} from "react-hot-toast";
 
-const Div = styled.div`
+export const Div = styled.div`
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
 `;
-const InnerDiv = styled.div`
+export const InnerDiv = styled.div`
    width: 340px;
    height: 300px;
    background-color: #fff;
@@ -28,7 +28,7 @@ const InnerDiv = styled.div`
       width: calc(250px - 20px);
    }
 `;
-const InputsBox = styled.div`
+export const InputsBox = styled.div`
    width: 80%;
    height: 255px;
    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
@@ -37,7 +37,7 @@ const InputsBox = styled.div`
    align-items: center;
    justify-content: space-around;
 `;
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
    width: 100%;
    height: 50px;
    display: flex;
@@ -45,7 +45,7 @@ const InputContainer = styled.div`
    align-items: flex-start;
    justify-content: space-between;
 `;
-const LoginBtn = styled.button`
+export const LoginBtn = styled.button`
    width: 100%;
    height: 33px;
    background-color: #2b353d84;
@@ -59,7 +59,7 @@ const LoginBtn = styled.button`
       transition: all 0.1s ease-in;
    }
 `;
-const Input = styled.input`
+export const Input = styled.input`
    border-style: solid;
    width: 95%;
    font-weight: 600;
@@ -78,15 +78,11 @@ const Input = styled.input`
       transition: all 0.1s ease-in-out;
    }
 `;
-const H3 = styled.h1`
+export const H3 = styled.h1`
    font-size: 2rem;
    color: #333333;
 `;
-const Docs = styled.div`
-   color: #333;
-   text-align: center;
-   font-size: 13px;
-`;
+
 const ErrorMessage = styled.div`
    height: 50px;
    display: flex;
@@ -106,8 +102,8 @@ const Register = () => {
    const [pass, setPass] = useState("null");
    const notifyError = (str) => toast.error(str);
    const notifySuccess = (str) => toast.success(str);
-
    const navigate = useNavigate();
+
    const Clickhandle = async (event) => {
       event.preventDefault();
       try {

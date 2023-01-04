@@ -1,21 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const HomeDiv = styled.div`
+export const HomeDiv = styled.div`
    width: 100%;
    height: 100vh;
    display: flex;
    justify-content: center;
 `;
 
-const InnerDiv = styled.div`
+export const InnerDiv = styled.div`
    max-width: 920px;
    width: 80vw;
    height: 100vh;
-   /* display: grid; */
 `;
 
-const TextBox = styled.div`
+export const TextBox = styled.div`
    width: calc(100% - 20px);
    height: 100px;
    background-color: #eeeeee;
@@ -35,7 +34,7 @@ const TextBox = styled.div`
       width: calc(250px - 20px);
    }
 `;
-const GettingStarted = styled.div`
+export const GettingStarted = styled.div`
    width: calc(100%);
    height: 100px;
    margin-top: 20px;

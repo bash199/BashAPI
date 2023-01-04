@@ -1,7 +1,13 @@
 export const createDocument = async (req, res) => {
    try {
-      const {Model, body} = req;
+      const {Model, body, user, collection} = req;
       const newDoc = await Model.create(body);
+      user.collections.forEach((cc) => {
+         if (cc.name === collection.name) {
+            cc.documentCount += 1;
+         }
+      });
+      await user.save();
       res.status(201).send(newDoc);
    } catch (err) {
       console.log(err);
@@ -40,10 +46,16 @@ export const getDocument = async (req, res) => {
 
 export const deleteDocument = async (req, res) => {
    try {
-      const {Model} = req;
+      const {Model, user, collection} = req;
       const _id = req.params.id;
       const deletedDocument = await Model.findByIdAndDelete({_id});
       if (!deletedDocument) throw new Error("Document Not Found");
+      user.collections.forEach((cc) => {
+         if (cc.name === collection.name) {
+            cc.documentCount -= 1;
+         }
+      });
+      await user.save();
       res.status(200).send(deletedDocument);
    } catch (err) {
       console.log(err);

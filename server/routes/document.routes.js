@@ -22,7 +22,7 @@ documentRouter.get(
 
 // Get A Document By ID
 documentRouter.get(
-   "/:collectionName/:id",
+   "/:token/:collectionName/:id",
    authUser,
    authCollection,
    getDocument
@@ -38,7 +38,7 @@ documentRouter.post(
 
 // Update A Document By ID
 documentRouter.put(
-   "/:collectionName/:id",
+   "/:token/:collectionName/:id",
    authUser,
    authCollection,
    updateDocument
@@ -46,7 +46,7 @@ documentRouter.put(
 
 // Delete A Document By ID
 documentRouter.delete(
-   "/:collectionName/:id",
+   "/:token/:collectionName/:id",
    authUser,
    authCollection,
    deleteDocument
