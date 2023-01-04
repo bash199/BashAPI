@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "@emotion/styled";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import "./navbar.css";
 import {Api} from "../api/Api";
-import {useState} from "react";
 
 const NavBox = styled.nav`
    width: 100%;
