@@ -11,7 +11,6 @@ const HomeDiv = styled.div`
    display: grid;
    justify-content: center;
 `;
-
 const InnerDiv = styled.div`
    max-width: 920px;
    width: 80vw;
@@ -32,14 +31,12 @@ const NewResourceBtn = styled.button`
       transition: all 0.1s ease-in;
    }
 `;
-
 const H1 = styled.h3`
    width: fit-content;
    font-size: medium;
    letter-spacing: 1px;
    margin: 2px;
 `;
-
 const ApiBox = styled.div`
    width: 100%;
    height: 150px;
@@ -58,7 +55,6 @@ const ApiBox = styled.div`
       height: 290px;
    }
 `;
-
 const ApiInnerContainer = styled.div`
    width: calc(100% - 10px);
    height: 70%;
@@ -66,7 +62,6 @@ const ApiInnerContainer = styled.div`
    padding: 0 5px;
    word-wrap: break-word;
 `;
-
 const NewResBtnContainer = styled.div`
    width: calc(100% - 10px);
    height: 30%;
@@ -123,7 +118,7 @@ const Dashboard = () => {
             )}
             {collections.map((collection) => {
                return (
-                  <Collection           
+                  <Collection
                      notify={notify}
                      getCollections={getCollections}
                      key={collection._id}

@@ -4,6 +4,7 @@ import {Api} from "../../api/Api";
 import EditResource from "./EditResource";
 import {reverseGeneratedName} from "../../utils/reverseGeneratedName";
 import ResourceData from "./ResourceData";
+
 const Div = styled.div`
    width:calc(260px - 20px) ;
    height: 80px;
@@ -23,7 +24,6 @@ const Div = styled.div`
    @media (max-width: 320px) {
       width:calc(200px - 20px) ;   }
 `;
-
 const BtnsBox = styled.div`
    display: none;
    height: 30px;
@@ -34,7 +34,6 @@ const Btn = styled.button`
    text-align: center;
    background-color: #c2c2c2;
    color: #333;
-   /* font-size: 15px; */
    border-radius: 6px;
    border: none;
    cursor: pointer;

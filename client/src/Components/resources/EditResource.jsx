@@ -15,7 +15,7 @@ import {
    Select,
 } from "./NewResource";
 
-const EditResource = ({setEdit, collection,notify}) => {
+const EditResource = ({setEdit, collection, notify}) => {
    const collecName = reverseGeneratedName(collection.name);
    const [fields, setFields] = useState([]);
    const [removedFields, setRemovedFields] = useState([]);
@@ -79,7 +79,7 @@ const EditResource = ({setEdit, collection,notify}) => {
             removedFields,
          });
          // console.log(data);
-         notify('Updated Successfully!')
+         notify("Updated Successfully!");
          setEdit((prev) => !prev);
       } catch (err) {
          console.log(err.response);
@@ -132,13 +132,13 @@ const EditResource = ({setEdit, collection,notify}) => {
                                  type="button"
                                  onClick={() => handleRemove(i)}
                               >
-                                 -
+                                 Delete
                               </Btn>
                            </div>
                         ))}
                         <div style={{margin: "5px"}}>
                            <Btn type="button" onClick={handleAdd}>
-                              +
+                              Add
                            </Btn>
                         </div>
                      </form>

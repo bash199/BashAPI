@@ -10,7 +10,6 @@ const ButtonBox = styled.div`
    display: flex;
    justify-content: end;
 `;
-
 const TextBox = styled.div`
    width: 100%;
    height: 90%;
@@ -18,7 +17,6 @@ const TextBox = styled.div`
    display: flex;
    justify-content: center;
 `;
-
 const TextArea = styled.textarea`
    width: 100%;
    min-width: 40%;
