@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {toast, Toaster} from "react-hot-toast";
+
 const Div = styled.div`
    display: flex;
    flex-direction: column;
@@ -20,10 +22,10 @@ const InnerDiv = styled.div`
    align-items: center;
    flex-direction: column;
    @media (max-width: 520px) {
-      width:calc(300px - 20px) ; 
+      width: calc(300px - 20px);
    }
    @media (max-width: 350px) {
-      width:calc(250px - 20px) ; 
+      width: calc(250px - 20px);
    }
 `;
 const InputsBox = styled.div`
@@ -43,7 +45,6 @@ const InputContainer = styled.div`
    align-items: flex-start;
    justify-content: space-between;
 `;
-
 const LoginBtn = styled.button`
    width: 100%;
    height: 33px;
@@ -58,7 +59,6 @@ const LoginBtn = styled.button`
       transition: all 0.1s ease-in;
    }
 `;
-
 const Input = styled.input`
    border-style: solid;
    width: 95%;
@@ -97,41 +97,53 @@ const ErrorMessage = styled.div`
    text-align: center;
    font-size: 0.9rem;
 `;
+
 const Register = () => {
    const [inputs, setInputs] = useState({
       email: "",
       password: "",
    });
-   const [error, setError] = useState(null);
    const [pass, setPass] = useState("null");
+   const notifyError = (str) => toast.error(str);
+   const notifySuccess = (str) => toast.success(str);
 
    const navigate = useNavigate();
    const Clickhandle = async (event) => {
       event.preventDefault();
       try {
          if (!inputs.email || !inputs.password || !pass) {
+            notifyError("Fill The necessary Fields");
             return;
          }
          if (inputs.password !== pass) {
-            return setError("Passwords Doesn't Match");
+            return notifyError("Passwords Doesn't Match");
          }
          await Api.post("/user/register", inputs);
-         navigate("/login");
+         notifySuccess("registered successfully!");
+         setTimeout(() => {
+            navigate("/login");
+         }, 1000);
          setInputs({
             email: "",
             password: "",
          });
-      } catch (error) {
-         const {data, status} = error.response;
+      } catch (err) {
+         const {data, status} = err.response;
          if (
             data ===
                "User validation failed: email: must be valid Email links" &&
             status === 400
          ) {
-            return setError("must be valid Email");
+            return notifyError("Must be valid email");
          }
-         console.log(error.response);
-         setError(error.response.data);
+         else if (err.response.data) {
+            const i = err.response.data.indexOf(":");
+            const str = err.response.data.substr(0, i);
+            if (str === "E11000 duplicate key error collection") {
+               return notifyError("email already in use");
+            }
+         }
+         console.log(err.response);
       }
    };
 
@@ -143,6 +155,9 @@ const Register = () => {
 
    return (
       <Div>
+         <div>
+            <Toaster position="top-center" reverseOrder={true} />
+         </div>
          <H3>Sign up</H3>
          <InnerDiv>
             <InputsBox>
@@ -185,7 +200,10 @@ const Register = () => {
                <LoginBtn onClick={Clickhandle}>Login</LoginBtn>
             </InputsBox>
             <ErrorMessage>
-               <Docs>{error}</Docs>
+               <p>
+               Already have an account? Login{" "}
+                  <Link to={"/login"}>here</Link>
+               </p>
             </ErrorMessage>
          </InnerDiv>
       </Div>

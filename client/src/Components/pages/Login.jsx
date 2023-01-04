@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 import {Link, useNavigate} from "react-router-dom";
-// import "../App.css";
+import {toast, Toaster} from "react-hot-toast";
 const Div = styled.div`
    display: flex;
    flex-direction: column;
@@ -21,10 +21,10 @@ const InnerDiv = styled.div`
    align-items: center;
    flex-direction: column;
    @media (max-width: 520px) {
-      width:calc(300px - 20px) ; 
+      width: calc(300px - 20px);
    }
    @media (max-width: 350px) {
-      width:calc(250px - 20px) ; 
+      width: calc(250px - 20px);
    }
 `;
 const InputsBox = styled.div`
@@ -107,10 +107,14 @@ const Login = () => {
    });
    const [error, setError] = useState(null);
    const navigate = useNavigate();
+   const notify = (str) =>toast.error(str)
    const Clickhandle = async (event) => {
       event.preventDefault();
       try {
-         if (!inputs.email || !inputs.password) return;
+         if (!inputs.email || !inputs.password) {
+            notify('Fill The necessary Fields')
+            return
+         }
 
          setError(null);
          const {data} = await Api.post("/user/login", inputs);
@@ -123,7 +127,7 @@ const Login = () => {
          });
       } catch (err) {
          if (err.response) {
-            return setError(err.response.data);
+            return notify(err.response.data);
          }
          setError(err.message);
       }
@@ -137,6 +141,9 @@ const Login = () => {
 
    return (
       <Div>
+         <div>
+            <Toaster position="top-center" reverseOrder={true} />
+         </div>
          <H3>Sign in</H3>
          <InnerDiv>
             <InputsBox>
@@ -160,7 +167,7 @@ const Login = () => {
                      placeholder="..."
                      onChange={handleInputChange}
                      name="password"
-                     type="text"
+                     type="password"
                   />
                </InputContainer>
                <Docs>{error}</Docs>

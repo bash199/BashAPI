@@ -164,14 +164,17 @@ export const FormInnerBox = styled.div`
    justify-content: space-between;
    /* overflow: auto; */
 `;
+
 export const FormOverFlowDiv = styled.div`
    overflow: auto;
 `;
+
 const RescorceNameBox = styled.div`
    display: flex;
    justify-content: center;
 `;
-const NewResource = ({setResource}) => {
+
+const NewResource = ({setResource,notify}) => {
    const [fields, setFields] = useState([{name: "", type: ""}]);
    const [name, setName] = useState("");
    const [error, setError] = useState("");
@@ -206,18 +209,21 @@ const NewResource = ({setResource}) => {
    const handleCreate = async () => {
       try {
          const schema = fillSchema();
+         if (!name) {
+            return;
+         }
          await Api.post(`/collection/${token}/newCollection`, {
             name,
             schema,
          });
-         // console.log(data);
          setResource((prev) => !prev);
+         notify('Created Successfully!')
       } catch (err) {
          if (err.response.data) {
             const i = err.response.data.indexOf(":");
             const str = err.response.data.substr(0, i);
             if (str === "E11000 duplicate key error collection") {
-               return setError("Resource Name allready in use");
+               return setError("Resource Name already in use");
             }
          }
          console.log(err);

@@ -13,7 +13,6 @@ const InnerDiv = styled.div`
    width: 80vw;
    height: 100vh;
    /* display: grid; */
-   
 `;
 
 const TextBox = styled.div`
@@ -33,7 +32,7 @@ const TextBox = styled.div`
       height: 190px;
    }
    @media (max-width: 350px) {
-      width:calc(250px - 20px) ; 
+      width: calc(250px - 20px);
    }
 `;
 const GettingStarted = styled.div`
@@ -60,6 +59,7 @@ const Docs = () => {
                <p>2. Define your schema</p>
                <p>
                   3. Copy Your unieqe API Endpoine & add to it the resource name
+                  (:endpoint)
                </p>
                <p>4.Enjoy our service.</p>
             </GettingStarted>

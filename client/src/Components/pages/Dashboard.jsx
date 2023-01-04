@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 import Collection from "../resources/AllResources";
 import NewResource from "../resources/NewResource";
+import toast, {Toaster} from "react-hot-toast";
 
 const HomeDiv = styled.div`
    width: 100%;
@@ -78,6 +79,14 @@ const Dashboard = () => {
    const [collections, setCollections] = useState([]);
    const [resource, setResource] = useState(false);
    const [token] = useState(localStorage.getItem("BashApitoken"));
+   const notify = (str) =>
+      toast.success(str, {
+         style: {
+            borderRadius: "4px",
+            background: "#333",
+            color: "#fff",
+         },
+      });
 
    const getCollections = async () => {
       const {data} = await Api.get(`/collection/${token}`);
@@ -92,6 +101,9 @@ const Dashboard = () => {
 
    return (
       <HomeDiv>
+         <div>
+            <Toaster position="top-center" reverseOrder={true} />
+         </div>
          <InnerDiv>
             <ApiBox>
                <ApiInnerContainer>
@@ -106,10 +118,13 @@ const Dashboard = () => {
                   </NewResourceBtn>
                </NewResBtnContainer>
             </ApiBox>
-            {resource && <NewResource setResource={setResource} />}
+            {resource && (
+               <NewResource notify={notify} setResource={setResource} />
+            )}
             {collections.map((collection) => {
                return (
-                  <Collection
+                  <Collection           
+                     notify={notify}
                      getCollections={getCollections}
                      key={collection._id}
                      collection={collection}

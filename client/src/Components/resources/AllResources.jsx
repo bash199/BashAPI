@@ -44,7 +44,7 @@ const Btn = styled.button`
    }
 `;
 
-const Collection = ({collection, getCollections}) => {
+const Collection = ({collection, getCollections,notify}) => {
    const [edit, setEdit] = useState(false);
    const [data, setData] = useState(false);
    const token = localStorage.getItem("BashApitoken");
@@ -56,6 +56,7 @@ const Collection = ({collection, getCollections}) => {
             await Api.delete(`/collection/delete/${token}/${name}`);
             console.log("Resource deleted");
             getCollections();
+            notify('Deleted Successfully!')
          } else {
             throw new Error("Please Login");
          }
@@ -80,8 +81,8 @@ const Collection = ({collection, getCollections}) => {
             <Btn onClick={handleEdit}>Edit</Btn>
             <Btn onClick={handleDelete}>Delete</Btn>
          </BtnsBox>
-         {edit && <EditResource collection={collection} setEdit={setEdit} />}
-         {data && <ResourceData collection={collection} setData={setData} />}
+         {edit && <EditResource notify={notify} collection={collection} setEdit={setEdit} />}
+         {data && <ResourceData notify={notify} collection={collection} setData={setData} />}
       </Div>
    );
 };

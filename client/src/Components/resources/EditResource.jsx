@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import styled from "@emotion/styled";
 import {Api} from "../../api/Api";
 import {reverseGeneratedName} from "../../utils/reverseGeneratedName";
 import {
@@ -16,10 +15,7 @@ import {
    Select,
 } from "./NewResource";
 
-
-
-
-const EditResource = ({setEdit, collection}) => {
+const EditResource = ({setEdit, collection,notify}) => {
    const collecName = reverseGeneratedName(collection.name);
    const [fields, setFields] = useState([]);
    const [removedFields, setRemovedFields] = useState([]);
@@ -78,14 +74,12 @@ const EditResource = ({setEdit, collection}) => {
    const handleUpdate = async () => {
       try {
          const updatedSchema = fillSchema();
-         const data = await Api.put(
-            `/collection/update/${token}/${collecName}`,
-            {
-               updatedSchema,
-               removedFields,
-            }
-         );
+         await Api.put(`/collection/update/${token}/${collecName}`, {
+            updatedSchema,
+            removedFields,
+         });
          // console.log(data);
+         notify('Updated Successfully!')
          setEdit((prev) => !prev);
       } catch (err) {
          console.log(err.response);

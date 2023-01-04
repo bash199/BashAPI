@@ -1,4 +1,4 @@
-import mongoose, {deleteModel} from "mongoose";
+import mongoose from "mongoose";
 import {CollectionModel} from "../model/collection.model.js";
 import {createModel} from "../services/createModel.js";
 import {createSchema, modifieSchema} from "../services/createSchema.js";
@@ -28,7 +28,6 @@ export const deleteCollection = async (user, collection) => {
          (el) => el.name !== collection.name
       );
       mongoose.connection.dropCollection(collection.name);
-      deleteModel(collection.name);
       const modifiedUser = await user.save();
       return modifiedUser;
    } catch (error) {
@@ -49,22 +48,20 @@ export const updateCollection = async (
 };
 
 export const addDocs = async (user) => {
-   user.collections = user.collections.map(
-      async (cc) => {
-         const collection = await CollectionModel.findOne({name:cc.name});
-         if (collection) {
-            const Model = await createModel(cc.name, collection.schema);
-            cc.documentCount = await Model.countDocuments({});
-         }
-         console.log(cc.name);
-         return {
-            name:cc.name,
-            collectionId:cc.collectionId,
-            _id:cc._id,
-            documentCount:cc.documentCount,
-         };
+   user.collections = user.collections.map(async (cc) => {
+      const collection = await CollectionModel.findOne({name: cc.name});
+      if (collection) {
+         const Model = await createModel(cc.name, collection.schema);
+         cc.documentCount = await Model.countDocuments({});
       }
-   );
+      console.log(cc.name);
+      return {
+         name: cc.name,
+         collectionId: cc.collectionId,
+         _id: cc._id,
+         documentCount: cc.documentCount,
+      };
+   });
    const countDocsUser = await user.save();
    return countDocsUser;
 };
