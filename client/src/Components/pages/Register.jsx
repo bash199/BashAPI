@@ -19,6 +19,12 @@ const InnerDiv = styled.div`
    display: flex;
    align-items: center;
    flex-direction: column;
+   @media (max-width: 520px) {
+      width:calc(300px - 20px) ; 
+   }
+   @media (max-width: 350px) {
+      width:calc(250px - 20px) ; 
+   }
 `;
 const InputsBox = styled.div`
    width: 80%;

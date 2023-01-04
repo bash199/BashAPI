@@ -5,13 +5,13 @@ import EditResource from "./EditResource";
 import {reverseGeneratedName} from "../../utils/reverseGeneratedName";
 import ResourceData from "./ResourceData";
 const Div = styled.div`
-   width: 260px;
+   width:calc(260px - 20px) ;
    height: 80px;
    padding: 0 5px;
    margin: 10px;
    letter-spacing: 0.8px;
    border-radius: 5px;
-   border: 2px solid transparent;
+   border: 2px solid #eee;
    &:hover {
       border: 2px solid #eee;
       .BtnBox {
@@ -20,6 +20,8 @@ const Div = styled.div`
          align-items: center;
       }
    }
+   @media (max-width: 320px) {
+      width:calc(200px - 20px) ;   }
 `;
 
 const BtnsBox = styled.div`

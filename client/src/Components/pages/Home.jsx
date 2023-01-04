@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import styled from "@emotion/styled";
 import {Link, useNavigate} from "react-router-dom";
 import "../App.css";
-import { Btn2 } from "../resources/NewResource";
+import {Btn2} from "../resources/NewResource";
 const HomeDiv = styled.div`
    width: 100%;
    height: calc(100vh - 45px);
@@ -11,6 +11,7 @@ const HomeDiv = styled.div`
 `;
 
 const InnerDiv = styled.div`
+   max-width: 920px;
    width: 80vw;
    height: 40vh;
    display: flex;
@@ -20,8 +21,6 @@ const InnerDiv = styled.div`
 const TextBox = styled.div`
    text-align: center;
 `;
-
- 
 
 const Home = () => {
    const navigate = useNavigate();

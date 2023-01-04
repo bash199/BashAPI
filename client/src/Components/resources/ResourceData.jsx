@@ -22,7 +22,8 @@ const TextBox = styled.div`
 const TextArea = styled.textarea`
    width: 100%;
    min-width: 40%;
-   max-height: 100%;
+   max-height: 90%;
+
 `;
 
 const ResourceData = ({setData, collection}) => {

@@ -7,7 +7,7 @@ export const Overlay = styled.div`
    top: 0;
    right: 0;
    left: 0;
-   bottom: -55px;
+   bottom: -100px;
    background-color: rgba(0, 0, 0, 0.4);
    display: grid;
    align-items: center;

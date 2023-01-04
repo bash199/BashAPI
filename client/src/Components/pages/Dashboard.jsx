@@ -47,6 +47,15 @@ const ApiBox = styled.div`
    flex-direction: column;
    justify-content: space-between;
    border-radius: 5px;
+   @media (max-width: 520px) {
+      height: 200px;
+   }
+   @media (max-width: 420px) {
+      height: 270px;
+   }
+   @media (max-width: 320px) {
+      height: 290px;
+   }
 `;
 
 const ApiInnerContainer = styled.div`
@@ -87,7 +96,9 @@ const Dashboard = () => {
             <ApiBox>
                <ApiInnerContainer>
                   <H1>API endpoint:</H1>
-                  <small>https://bashapi.onrender.com/api/doc/{token}/:endpoint</small>
+                  <small>
+                     https://bashapi.onrender.com/api/doc/{token}/:endpoint
+                  </small>
                </ApiInnerContainer>
                <NewResBtnContainer>
                   <NewResourceBtn onClick={() => setResource((prev) => !prev)}>
