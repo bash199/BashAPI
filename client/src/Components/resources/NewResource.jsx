@@ -18,10 +18,10 @@ export const Overlay = styled.div`
 export const FormBox = styled.div`
    max-width: 600px;
    width: 50%;
-   height: 50vh;
+   height: 70vh;
    padding: 10px;
    border-radius: 7px;
-   background-color: antiquewhite;
+   background-color: #fff;
    -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
    animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
    @media (max-width: 500px) {
@@ -45,12 +45,128 @@ export const FormBox = styled.div`
       }
    }
 `;
-const ButtonBox = styled.div`
+export const Input = styled.input`
+   border-style: solid;
+   width: calc(40% - 20px);
+   font-weight: 500;
+   font-size: 17px;
+   padding: 5px 7px;
+   margin: 0 5px;
+   border-width: 2px;
+   border-radius: 5px;
+   color: #8a8a8a;
+   background-color: #eee;
+   border: none;
+   margin-top: 8px;
+   &:focus {
+      outline-color: #2196f3;
+      outline-offset: 3px;
+      transition: all 0.1s ease-in-out;
+   }
+`;
+
+export const RescorceNmeInput = styled.input`
+   border-style: solid;
+   width: calc(100% - 14px);
+   font-weight: 500;
+   font-size: 17px;
+   padding: 5px 7px;
+   border-width: 2px;
+   border-radius: 5px;
+   color: #8a8a8a;
+   background-color: #eee;
+   border: none;
+   margin-top: 8px;
+   &:focus {
+      outline-color: #2196f3;
+      outline-offset: 3px;
+      transition: all 0.1s ease-in-out;
+   }
+`;
+
+export const Select = styled.select`
+   border-style: solid;
+   width: calc(43% - 20px);
+   font-weight: 600;
+   font-size: 17px;
+   padding: 5px 7px;
+   margin: 0 5px;
+   border-width: 2px;
+   border-radius: 5px;
+   color: #8a8a8a;
+   background-color: #eee;
+   border: none;
+   margin-top: 8px;
+   &:focus {
+      outline-color: #2196f3;
+      outline-offset: 3px;
+      transition: all 0.1s ease-in-out;
+   }
+`;
+
+export const ButtonBox = styled.div`
    width: 100%;
    margin: 5px 0 5px 0;
    display: flex;
    justify-content: end;
 `;
+
+export const FooterBtns = styled.div`
+   width: 100%;
+   margin: 5px 0 5px 0;
+   display: flex;
+   justify-content: center;
+   align-self: flex-end;
+`;
+
+export const FooterBtnsInnerBox = styled.div`
+   width: 250px;
+   margin: 5px 0 5px 0;
+   display: flex;
+   justify-content: space-between;
+`;
+
+export const Btn = styled.button`
+   width: 50px;
+   height: 22px;
+   text-align: center;
+   margin: 0 3px;
+   background-color: #c2c2c2;
+   color: #333;
+   border-radius: 6px;
+   border: none;
+   cursor: pointer;
+   &:active {
+      transform: scale(0.98);
+      transition: all 0.1s ease-in;
+   }
+`;
+
+export const Btn2 = styled.button`
+   width: 100px;
+   height: 28px;
+   text-align: center;
+   background-color: #c2c2c2;
+   color: #333;
+   border-radius: 6px;
+   border: none;
+   cursor: pointer;
+   &:active {
+      transform: scale(0.98);
+      transition: all 0.1s ease-in;
+   }
+`;
+
+export const FormInnerBox = styled.div`
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   /* overflow: auto; */
+`;
+export const FormOverFlowDiv = styled.div`
+   overflow: auto;
+`
 const NewResource = ({setResource}) => {
    const [fields, setFields] = useState([{name: "", type: ""}]);
    const [name, setName] = useState("");
@@ -96,83 +212,99 @@ const NewResource = ({setResource}) => {
          console.log(err.response);
       }
    };
-
    return (
       <div>
          <Overlay>
             <FormBox>
-               <ButtonBox>
-                  <button onClick={() => setResource((prev) => !prev)}>
-                     X
-                  </button>
-               </ButtonBox>
-               <div>
-                  <h4>Resource Name</h4>
-                  <small htmlFor="ResourceName">
-                     Enter meaningful resource name, it will be used to generate
-                     API endpoints.
-                  </small>
-                  <div>
-                     <input
-                        id="ResourceName"
-                        type="text"
-                        placeholder="Example: users, comments, articles"
-                        value={name}
-                        onChange={({target: {value}}) => setName(value)}
-                     />
-                  </div>
-               </div>
-               <h4>Schema </h4>
-               <small>
-                  Define Resource schema, it will be used to generate mock data.
-               </small>
-               <form>
-                  <input disabled={true} defaultValue={"_id"} />
-                  <input defaultValue={"ObjectId"} disabled={true} />
-                  {fields.map((field, i) => (
-                     <div key={i}>
-                        <input
-                           type="text"
-                           name="name"
-                           placeholder="Field name"
-                           value={field.name}
-                           onChange={(e) => handleChange(i, e)}
-                        />
-
-                        <select
-                           name="type"
-                           value={field.type}
-                           onChange={(e) => handleChange(i, e)}
-                        >
-                           <option value="">---</option>
-                           <option value="String">String</option>
-                           <option value="Number">Number</option>
-                           <option value="Boolean">Boolean</option>
-                           <option value="Array">Array</option>
-                           <option value="Object">Object</option>
-                        </select>
-                        <button type="button" onClick={() => handleRemove(i)}>
-                           -
-                        </button>
+               <FormInnerBox>
+                  <FormOverFlowDiv>
+                     <ButtonBox>
+                        <Btn onClick={() => setResource((prev) => !prev)}>
+                           X
+                        </Btn>
+                     </ButtonBox>
+                     <div>
+                        <h4>Resource Name</h4>
+                        <small htmlFor="ResourceName">
+                           Enter meaningful resource name, it will be used to
+                           generate API endpoints.
+                        </small>
+                        <div>
+                           <RescorceNmeInput
+                              id="ResourceName"
+                              type="text"
+                              placeholder="Example: users, comments, articles"
+                              value={name}
+                              onChange={({target: {value}}) => setName(value)}
+                           />
+                        </div>
                      </div>
-                  ))}
-                  <button type="button" onClick={handleAdd}>
-                     +
-                  </button>
-               </form>
-               <div>
-                  <h5>GET ={">"} /...</h5>
-                  <h5>GET ={">"} /.../:id</h5>
-                  <h5>POST ={">"} /...</h5>
-                  <h5>PUT ={">"} /.../:id</h5>
-                  <h5>DELETE ={">"} /.../:id</h5>
-               </div>
-               <div>
-                  <button onClick={handleCreate}>Create</button>
-                  <button onClick={() => setResource((prev) => !prev)}>
-                     Cancel
-                  </button>
-               </div>
+                     <h4>Schema </h4>
+                     <small>
+                        Define Resource schema, it will be used to generate mock
+                        data.
+                     </small>
+                     <form>
+                        <div>
+                           <Input disabled={true} defaultValue={"_id"} />
+                           <Input defaultValue={"ObjectId"} disabled={true} />
+                        </div>
+                        <div>
+                           {fields.map((field, i) => (
+                              <div key={i}>
+                                 <Input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Field name"
+                                    value={field.name}
+                                    onChange={(e) => handleChange(i, e)}
+                                 />
+
+                                 <Select
+                                    name="type"
+                                    value={field.type}
+                                    onChange={(e) => handleChange(i, e)}
+                                 >
+                                    <option value="">---</option>
+                                    <option value="String">String</option>
+                                    <option value="Number">Number</option>
+                                    <option value="Boolean">Boolean</option>
+                                    <option value="Array">Array</option>
+                                    <option value="Object">Object</option>
+                                 </Select>
+                                 <Btn
+                                    type="button"
+                                    onClick={() => handleRemove(i)}
+                                 >
+                                    Delete
+                                 </Btn>
+                              </div>
+                           ))}
+                        </div>
+                        <div style={{margin: "5px"}}>
+                           <Btn type="button" onClick={handleAdd}>
+                              Add
+                           </Btn>
+                        </div>
+                     </form>
+                     <div style={{padding: " 0 5px"}}>
+                        <h4>Endpoints</h4>
+                        <h5>GET ={">"} /...</h5>
+                        <h5>GET ={">"} /.../:id</h5>
+                        <h5>POST ={">"} /...</h5>
+                        <h5>PUT ={">"} /.../:id</h5>
+                        <h5>DELETE ={">"} /.../:id</h5>
+                     </div>
+                  </FormOverFlowDiv>
+                  <FooterBtns>
+                     <FooterBtnsInnerBox>
+                        <Btn2 onClick={handleCreate}>Create</Btn2>
+                        <Btn2 onClick={() => setResource((prev) => !prev)}>
+                           Cancel
+                        </Btn2>
+                     </FooterBtnsInnerBox>
+                  </FooterBtns>
+               </FormInnerBox>
             </FormBox>
          </Overlay>
       </div>

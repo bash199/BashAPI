@@ -5,7 +5,7 @@ import EditResource from "./EditResource";
 import {reverseGeneratedName} from "../../utils/reverseGeneratedName";
 import ResourceData from "./ResourceData";
 const Div = styled.div`
-   width: 270px;
+   width: 260px;
    height: 80px;
    padding: 0 5px;
    margin: 10px;
@@ -14,18 +14,32 @@ const Div = styled.div`
    border: 2px solid transparent;
    &:hover {
       border: 2px solid #eee;
-
       .BtnBox {
-         display: block;
-         transition: all 1s ease-in-out;
+         display: flex;
+         justify-content: space-around;
+         align-items: center;
       }
    }
 `;
 
 const BtnsBox = styled.div`
    display: none;
-
-   transition: all 2s ease-out;
+   height: 30px;
+`;
+const Btn = styled.button`
+   width: 50px;
+   height: 22px;
+   text-align: center;
+   background-color: #c2c2c2;
+   color: #333;
+   /* font-size: 15px; */
+   border-radius: 6px;
+   border: none;
+   cursor: pointer;
+   &:active {
+      transform: scale(0.98);
+      transition: all 0.1s ease-in;
+   }
 `;
 
 const Collection = ({collection, getCollections}) => {
@@ -60,9 +74,9 @@ const Collection = ({collection, getCollections}) => {
          <div>{name}</div>
          <div>Documents: {collection.documentCount}</div>
          <BtnsBox className="BtnBox">
-            <button onClick={handleData}>Data</button>
-            <button onClick={handleEdit}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
+            <Btn onClick={handleData}>Data</Btn>
+            <Btn onClick={handleEdit}>Edit</Btn>
+            <Btn onClick={handleDelete}>Delete</Btn>
          </BtnsBox>
          {edit && <EditResource collection={collection} setEdit={setEdit} />}
          {data && <ResourceData collection={collection} setData={setData} />}

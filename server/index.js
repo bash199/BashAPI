@@ -17,7 +17,7 @@ const publicPath = path.join(__dirname, "build");
 app.use(express.static(publicPath));
 app.use("/api/user", userRouter);
 app.use("/api/collection", collectionRouter);
-app.use("/doc", documentRouter);
+app.use("/api/doc", documentRouter);
 
 app.get("*", (req, res) => {
    console.log(__dirname);

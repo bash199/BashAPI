@@ -78,7 +78,8 @@ const H3 = styled.h1`
    color: #333333;
 `;
 const Docs = styled.div`
-   color: #333;
+   color: brown;
+   font-weight: 600;
    text-align: center;
    font-size: 13px;
 `;

@@ -87,7 +87,7 @@ const Dashboard = () => {
             <ApiBox>
                <ApiInnerContainer>
                   <H1>API endpoint:</H1>
-                  <small>https://bashapi.onrender.com/doc/{token}/:endpoint</small>
+                  <small>https://bashapi.onrender.com/api/doc/{token}/:endpoint</small>
                </ApiInnerContainer>
                <NewResBtnContainer>
                   <NewResourceBtn onClick={() => setResource((prev) => !prev)}>
