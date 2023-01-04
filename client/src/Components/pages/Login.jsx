@@ -42,7 +42,7 @@ const InputContainer = styled.div`
 const LoginBtn = styled.button`
    width: 100%;
    height: 33px;
-   background-color: #2196f3;
+   background-color: #2b353d84;
    color: white;
    font-size: 15px;
    border-radius: 6px;
@@ -160,7 +160,6 @@ const Login = () => {
                <LoginBtn onClick={Clickhandle}>Login</LoginBtn>
             </InputsBox>
             <Register>
-               {/* <Link to={'/register'}>here</Link> */}
                <p>
                   Don't have an account? Signup{" "}
                   <Link to={"/register"}>here</Link>

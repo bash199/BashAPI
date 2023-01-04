@@ -4,16 +4,25 @@ import {userRouter} from "./routes/userRoute.routes.js";
 import {collectionRouter} from "./routes/collectionRouter.routes.js";
 import {documentRouter} from "./routes/document.routes.js";
 import cors from "cors";
+import * as url from "url";
+import path from "path";
+const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
 app.use(json());
 app.use(cors());
-
+const publicPath = path.join(__dirname, "build");
+app.use(express.static(publicPath));
 app.use("/api/user", userRouter);
 app.use("/api/collection", collectionRouter);
-app.use("/api/document", documentRouter);
+app.use("/doc", documentRouter);
+
+app.get("*", (req, res) => {
+   console.log(__dirname);
+   res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
 
 app.listen(PORT, () => {
    console.log(` app listening on port ${PORT}`);
