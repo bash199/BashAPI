@@ -6,9 +6,3 @@ export const createSchema = async (schema) => {
    return newSchema;
 };
 
-// fieldsToRemove => array!!!
-export const modifieSchema = async (schema, fieldsToRemove, fieldsToAdd) => {
-   schema.add(fieldsToAdd);
-   schema.remove(fieldsToRemove);
-   return schema;
-};

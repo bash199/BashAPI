@@ -6,3 +6,9 @@ export const createModel = async (name, schema) => {
    }
    return models[name];
 };
+
+export const modifieModelSchema = async (name, fieldsToRemove, fieldsToAdd) => {
+   models[name].schema.add(fieldsToAdd);
+   models[name].schema.remove(fieldsToRemove);
+   return models[name];
+};

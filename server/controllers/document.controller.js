@@ -2,6 +2,7 @@ export const createDocument = async (req, res) => {
    try {
       const {Model, body, user, collection} = req;
       const newDoc = await Model.create(body);
+      console.dir(Model);
       user.collections.forEach((cc) => {
          if (cc.name === collection.name) {
             cc.documentCount += 1;

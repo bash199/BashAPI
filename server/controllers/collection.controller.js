@@ -20,15 +20,9 @@ export const createUserCollection = async (req, res) => {
 export const updateUserCollection = async (req, res) => {
    try {
       const {updatedSchema, removedFields} = req.body;
-      const {collection, schema} = req;
-
-      const updatedCollection = await updateCollection(
-         collection,
-         schema,
-         updatedSchema,
-         removedFields
-      );
-      res.status(200).send(updatedCollection);
+      const {collection} = req;
+      await updateCollection(collection, updatedSchema, removedFields);
+      res.status(200).send("Updated Successfully!");
    } catch (err) {
       console.log(err);
       res.status(400).send(err.message);
