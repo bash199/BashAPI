@@ -8,7 +8,7 @@ import * as url from "url";
 import path from "path";
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 const PORT = process.env.PORT || 4000;
-
+console.log(process.env);
 const app = express();
 
 app.use(json());
