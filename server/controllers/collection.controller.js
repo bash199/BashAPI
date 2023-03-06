@@ -12,7 +12,7 @@ export const createUserCollection = async (req, res) => {
       const newCollection = await createCollection(schema, name, user);
       res.status(201).send(newCollection);
    } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(400).send(error.message);
    }
 };
@@ -24,7 +24,7 @@ export const updateUserCollection = async (req, res) => {
       await updateCollection(collection, updatedSchema, removedFields);
       res.status(200).send("Updated Successfully!");
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(400).send(err.message);
    }
 };
@@ -35,7 +35,7 @@ export const deleteUserCollection = async (req, res) => {
       const deletedCollection = await deleteCollection(user, collection);
       res.send(deletedCollection);
    } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(400).send(error.message);
    }
 };
@@ -46,7 +46,7 @@ export const getUserCollection = async (req, res) => {
       const collection = await Model.find({});
       res.status(200).send(collection);
    } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(404).send(error.message);
    }
 };
@@ -57,7 +57,7 @@ export const getAllUserCollections = async (req, res) => {
       // await addDocs(user);
       res.status(200).send(user.collections);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(404).send(err.message);
    }
 };
@@ -67,7 +67,7 @@ export const getACollection = async (req, res) => {
       const {collection} = req;
       res.status(200).send(collection);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(404).send(err.message);
    }
 };

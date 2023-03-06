@@ -18,7 +18,7 @@ export const authCollection = async (req, res, next) => {
       req.Model = Model;
       next();
    } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(401).send(e.message);
    }
 };

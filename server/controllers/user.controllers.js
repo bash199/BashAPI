@@ -7,7 +7,7 @@ export const register = async (req, res) => {
       const token = await user.generateAuthToken();
       res.status(201).send({user, token});
    } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send(e.message);
    }
 };

@@ -84,8 +84,12 @@ const Dashboard = () => {
       });
 
    const getCollections = async () => {
-      const {data} = await Api.get(`/collection/${token}`);
-      setCollections(data);
+      try {
+         const {data} = await Api.get(`/collection/${token}`);
+         setCollections(data);
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    useEffect(() => {

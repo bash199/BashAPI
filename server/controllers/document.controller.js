@@ -11,7 +11,7 @@ export const createDocument = async (req, res) => {
       await user.save();
       res.status(201).send(newDoc);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(400).send(err.message);
    }
 };
@@ -27,7 +27,7 @@ export const updateDocument = async (req, res) => {
       if (!updatedDocument) throw new Error("Document Not Found");
       res.status(202).send(updatedDocument);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(404).send(err.message);
    }
 };
@@ -40,7 +40,7 @@ export const getDocument = async (req, res) => {
       if (!document) throw new Error("Document Not Found");
       res.status(200).send(document);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(404).send(err.message);
    }
 };
@@ -59,7 +59,7 @@ export const deleteDocument = async (req, res) => {
       await user.save();
       res.status(200).send(deletedDocument);
    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(404).send(err.message);
    }
 };

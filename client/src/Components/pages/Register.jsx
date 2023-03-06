@@ -139,7 +139,7 @@ const Register = () => {
                return notifyError("email already in use");
             }
          }
-         console.log(err.response);
+         console.error(err);
       }
    };
 

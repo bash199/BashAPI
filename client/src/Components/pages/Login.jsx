@@ -130,6 +130,7 @@ const Login = () => {
             return notify(err.response.data);
          }
          setError(err.message);
+         console.error(err);
       }
    };
 

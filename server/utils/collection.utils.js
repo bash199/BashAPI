@@ -31,7 +31,7 @@ export const deleteCollection = async (user, collection) => {
       const modifiedUser = await user.save();
       return modifiedUser;
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 };
 
